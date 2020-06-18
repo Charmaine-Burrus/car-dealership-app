@@ -5,8 +5,6 @@ import java.util.Date;
 
 public abstract class Vehicle {
 	
-	//PROVIDE GETTERS
-	
 	protected String make;
 	protected String model;
 	protected double price;
