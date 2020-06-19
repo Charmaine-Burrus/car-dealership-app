@@ -1,10 +1,12 @@
 package com.claim;
 
 import java.awt.image.BufferedImage;
+import java.lang.Math; 
 import java.util.Date;
 
 public abstract class Vehicle {
 	
+	protected long id;
 	protected String make;
 	protected String model;
 	protected double price;
@@ -19,9 +21,10 @@ public abstract class Vehicle {
 	}
 	
 	//overloaded constructor
-	public Vehicle(String make, String model, double price, 
+	public Vehicle(long id, String make, String model, double price, 
 			Date dateAddedToCurrInventory, Date dateOfPurchase, 
 			String description, BufferedImage pic) {
+		this.id = id;
 		this.make = make;
 		this.model = model;
 		this.price = price;
@@ -29,6 +32,14 @@ public abstract class Vehicle {
 		this.dateOfPurchase = dateOfPurchase;
 		this.description = description;
 		this.pic = pic;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 	
 	public void setMake(String make) {
@@ -86,8 +97,32 @@ public abstract class Vehicle {
 	public BufferedImage getPic() {
 		return this.pic;
 	}
-	
+
 	//will be used to display all necc details to user
 	public abstract String toString();
+	
+	public abstract String formatData();
+	
+	public boolean equals(Vehicle vehicle2) {
+		if (this.id == vehicle2.getId()) {
+			return true;
+		}
+		return false;
+	}
+	
+	//.compareTo will be by id
+	public int compareTo(Vehicle vehicle2) {
+		if (this.id == vehicle2.getId()) {
+			return 0;
+		}
+		else {
+			if (this.id < vehicle2.getId()) {
+				return -1;
+			}
+			else {
+				return 1;
+			}
+		}
+	}
 
 }
