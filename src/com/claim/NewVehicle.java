@@ -10,17 +10,15 @@ public class NewVehicle extends Vehicle {
 		super();
 	}
 	
-	public NewVehicle(String make, String model, double price, 
-			Date dateAddedToCurrInventory, Date dateOfPurchase, 
-			String description, BufferedImage pic) {
-		super(make, model, price, dateAddedToCurrInventory, 
-			dateOfPurchase, description, pic);
+	public NewVehicle(Long id, String make, String model, double askingPrice, 
+			Date dateAddedToCurrInventory, String description, BufferedImage pic) {
+		super(id, make, model, askingPrice, dateAddedToCurrInventory, 
+			description, pic);
 	}
 	
-	//MIGHT NOT USE THIS IF I DISPLAY IT ALL IN A TABLE OR SOMETHING INSTEAD
-	@Override
-	public String toString() {
-		return "Make: " + this.make + " Model: " + this.model + " Description: " + this.description;
+	//TO DO LATER: MIGHT NOT USE THIS IF I DISPLAY IT ALL IN A TABLE OR SOMETHING INSTEAD
+	public String toStringForCustomer() {
+		return "Make: " + this.make + " Model: " + this.model + "Price: " + this.askingPrice + " Description: " + this.description;
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.claim;
 
 import java.awt.image.BufferedImage;
-import java.lang.Math; 
 import java.util.Date;
 
 public abstract class Vehicle {
@@ -9,29 +8,32 @@ public abstract class Vehicle {
 	protected long id;
 	protected String make;
 	protected String model;
-	protected double price;
+	protected double askingPrice;
 	protected Date dateAddedToCurrInventory;
-	protected Date dateOfPurchase;
 	protected String description;
 	//picture - will have to be an internet link ... or figure out file
 	protected BufferedImage pic;
+	protected boolean eligibleForBid;
+	
+	protected double priceSold;
+	protected Buyer buyer;
+	protected Date dateOfPurchase;
 	
 	//default constructor
 	public Vehicle() {
 	}
 	
 	//overloaded constructor
-	public Vehicle(long id, String make, String model, double price, 
-			Date dateAddedToCurrInventory, Date dateOfPurchase, 
-			String description, BufferedImage pic) {
+	public Vehicle(long id, String make, String model, double askingPrice, 
+			Date dateAddedToCurrInventory, String description, BufferedImage pic) {
 		this.id = id;
 		this.make = make;
 		this.model = model;
-		this.price = price;
+		this.askingPrice = askingPrice;
 		this.dateAddedToCurrInventory = dateAddedToCurrInventory;
-		this.dateOfPurchase = dateOfPurchase;
 		this.description = description;
 		this.pic = pic;
+		this.eligibleForBid = false;
 	}
 	
 	public long getId() {
@@ -58,12 +60,12 @@ public abstract class Vehicle {
 		return this.model;
 	}
 	
-	public void setPrice(double price) {
-		this.price = price;
+	public void setaskingPrice(double askingPrice) {
+		this.askingPrice = askingPrice;
 	}
 	
-	public double getPrice() {
-		return this.price;
+	public double getaskingPrice() {
+		return this.askingPrice;
 	}
 	
 	public void setDateAddedToCurrInventory(Date dateAdded) {
@@ -98,10 +100,71 @@ public abstract class Vehicle {
 		return this.pic;
 	}
 
-	//will be used to display all necc details to user
-	public abstract String toString();
+	public double getPriceSold() {
+		return priceSold;
+	}
+
+	public void setPriceSold(double priceSold) {
+		this.priceSold = priceSold;
+	}
+
+	public Buyer getBuyer() {
+		return buyer;
+	}
+
+	public void setBuyer(Buyer buyer) {
+		this.buyer = buyer;
+	}
+
+	public boolean isEligibleForBid() {
+		return eligibleForBid;
+	}
+
+	public void setEligibleForBid(boolean eligibleForBid) {
+		this.eligibleForBid = eligibleForBid;
+	}
+
+	//will be used to display all details to admin - NewVehicle will use this & Used Vehicle will override it
+	public String toString() {
+		String result = "ID: " + this.id + "Make: " + this.make + 
+				"Model: " + this.model + "Asking Price: " + this.askingPrice + 
+				"Date Added to Current Inventory" +	this.dateAddedToCurrInventory + 
+				"Description" + 
+		this.description + "," + 
+		this.pic + ",";
+		if (this.priceSold != 0) {
+			result += this.priceSold + ",";
+		}
+		if (this.buyer != null) {
+			result += this.buyer + ",";
+		}
+		if (this.dateOfPurchase != null) {
+			result += this.dateOfPurchase;
+		}
+		return result;
+	}
 	
-	public abstract String formatData();
+	//will be used to display all necc details to user
+	public abstract String toStringForCustomer();
+	
+	//NewVehicle will use this & Used Vehicle will override it
+	public String formatData() {
+		String result = this.id + "," + this.make + "," + 
+			this.model + "," + this.askingPrice + "," +
+			this.dateAddedToCurrInventory + "," + 
+			this.description + "," + this.pic + ",";
+		//TO DO LATER: SHOULD THIS BE INCLUDED IF NULL OR NOT... FOR READING IN FROM PDF? PRBLY NOT
+		if (this.priceSold != 0) {
+			result += this.priceSold + ",";
+		}
+		if (this.buyer != null) {
+			result += this.buyer + ",";
+		}
+		if (this.dateOfPurchase != null) {
+			result += this.dateOfPurchase;
+		}
+		return result;
+	}
 	
 	public boolean equals(Vehicle vehicle2) {
 		if (this.id == vehicle2.getId()) {
@@ -110,7 +173,7 @@ public abstract class Vehicle {
 		return false;
 	}
 	
-	//.compareTo will be by id
+	//.compareTo by id
 	public int compareTo(Vehicle vehicle2) {
 		if (this.id == vehicle2.getId()) {
 			return 0;
