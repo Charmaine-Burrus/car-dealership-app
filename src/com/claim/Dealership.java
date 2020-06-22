@@ -60,5 +60,31 @@ public class Dealership {
 		this.latestID = latestID;
 	}
 	
+	public void moveCarsToBid() {
+		//loop through usedInventory
+		//loop through usedInventory
+		//if currentDate - dateEntere > 120 {   //TO DO: How do I get current date?
+		//add to over120Days
+		//remove from previous inventory
+		//change eligbileForBid to true
+	}
+	}
+
+	public void addToInventory(//all details for vehicle?) {
+		//LOOK BACK AT HOW I DID LIBRARY AND PHONEBOOK
+		//make a Vehicle with these details
+		//set id & everthing else
+		//update most recent id
+		//if the vehicle is a newVehicle add to newInventory  //TO DO: How do I do this?
+		//if the vehicle is a usedVehicle add to used
+		//set dateAddedToInventory to today
+	}
+	
+	public void sellVehicle() {
+		//update daysold
+		//update buyer
+		//update price sold
+		//transfer from one inventory to the other
+	} 
 
 }
