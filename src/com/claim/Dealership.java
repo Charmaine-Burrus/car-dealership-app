@@ -21,6 +21,7 @@ public class Dealership {
 	//private ArrayList<Vehicle> over120DaysInventory;
 	private ArrayList<Vehicle> soldInventory;
 	private int latestID;
+	//to do: employees
 	
 	public Dealership() {
 	}
@@ -251,6 +252,7 @@ public class Dealership {
 		
 	}
 	
+	//to do: TRY TO CONSOLIDATE THE TOP PARTS
 	public UsedVehicle createUsedVehicleFromFile(String vehicleInfo) {
 		String[] items = vehicleInfo.split("|");
 		UsedVehicle vehicle = new UsedVehicle();
