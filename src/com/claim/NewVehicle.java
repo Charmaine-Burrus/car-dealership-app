@@ -1,7 +1,7 @@
 package com.claim;
 
-import java.awt.image.BufferedImage;
-import java.util.Date;
+import java.net.URL;
+import java.time.LocalDate;
 
 public class NewVehicle extends Vehicle {
 	
@@ -11,9 +11,9 @@ public class NewVehicle extends Vehicle {
 	}
 	
 	public NewVehicle(Long id, String make, String model, double askingPrice, 
-			Date dateAddedToCurrInventory, String description, BufferedImage pic) {
+			LocalDate dateAddedToCurrInventory, String description, URL picURL) {
 		super(id, make, model, askingPrice, dateAddedToCurrInventory, 
-			description, pic);
+			description, picURL);
 	}
 	
 	//TO DO LATER: MIGHT NOT USE THIS IF I DISPLAY IT ALL IN A TABLE OR SOMETHING INSTEAD

@@ -1,7 +1,11 @@
 package com.claim;
 
 import java.awt.image.BufferedImage;
-import java.util.Date;
+import java.io.IOException;
+import java.net.URL;
+import java.time.LocalDate;
+
+import javax.imageio.ImageIO;
 
 public abstract class Vehicle {
 	
@@ -9,15 +13,18 @@ public abstract class Vehicle {
 	protected String make;
 	protected String model;
 	protected double askingPrice;
-	protected Date dateAddedToCurrInventory;
+	protected LocalDate dateAddedToCurrInventory;
 	protected String description;
 	//picture - will have to be an internet link ... or figure out file
-	protected BufferedImage pic;
+	protected URL picURL;
+
 	protected boolean eligibleForBid;
+	
+	protected BufferedImage pic;
 	
 	protected double priceSold;
 	protected Buyer buyer;
-	protected Date dateOfPurchase;
+	protected LocalDate dateOfPurchase;
 	
 	//default constructor
 	public Vehicle() {
@@ -25,15 +32,21 @@ public abstract class Vehicle {
 	
 	//overloaded constructor
 	public Vehicle(long id, String make, String model, double askingPrice, 
-			Date dateAddedToCurrInventory, String description, BufferedImage pic) {
+			LocalDate dateAddedToCurrInventory, String description, URL picURL) {
 		this.id = id;
 		this.make = make;
 		this.model = model;
 		this.askingPrice = askingPrice;
 		this.dateAddedToCurrInventory = dateAddedToCurrInventory;
 		this.description = description;
-		this.pic = pic;
+		this.picURL = picURL;
+		
 		this.eligibleForBid = false;
+		try {
+			this.pic = ImageIO.read(picURL);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public long getId() {
@@ -68,19 +81,19 @@ public abstract class Vehicle {
 		return this.askingPrice;
 	}
 	
-	public void setDateAddedToCurrInventory(Date dateAdded) {
+	public void setDateAddedToCurrInventory(LocalDate dateAdded) {
 		this.dateAddedToCurrInventory = dateAdded;
 	}
 	
-	public Date getDateAddedToCurrInventory() {
+	public LocalDate getDateAddedToCurrInventory() {
 		return this.dateAddedToCurrInventory;
 	}
 	
-	public void setDateOfPurchase(Date dateOfPurchase) {
+	public void setDateOfPurchase(LocalDate dateOfPurchase) {
 		this.dateOfPurchase = dateOfPurchase;
 	}
 	
-	public Date getDateOfPurchase() {
+	public LocalDate getDateOfPurchase() {
 		return this.dateOfPurchase;
 	}
 	
@@ -90,6 +103,14 @@ public abstract class Vehicle {
 	
 	public String getDescription() {
 		return this.description;
+	}
+	
+	public URL getPicURL() {
+		return picURL;
+	}
+
+	public void setPicURL(URL picURL) {
+		this.picURL = picURL;
 	}
 	
 	public void setPic(BufferedImage pic) {
@@ -129,9 +150,8 @@ public abstract class Vehicle {
 		String result = "ID: " + this.id + "Make: " + this.make + 
 				"Model: " + this.model + "Asking Price: " + this.askingPrice + 
 				"Date Added to Current Inventory" +	this.dateAddedToCurrInventory + 
-				"Description" + 
-		this.description + "," + 
-		this.pic + ",";
+				"Description" + this.description + "Pic URL:" + this.picURL + "," +
+				"Eligible for Bid:" + this.eligibleForBid;
 		if (this.priceSold != 0) {
 			result += this.priceSold + ",";
 		}
@@ -149,19 +169,20 @@ public abstract class Vehicle {
 	
 	//NewVehicle will use this & Used Vehicle will override it
 	public String formatData() {
-		String result = this.id + "," + this.make + "," + 
-			this.model + "," + this.askingPrice + "," +
-			this.dateAddedToCurrInventory + "," + 
-			this.description + "," + this.pic + ",";
+		String result = this.id + "|" + this.make + "|" + 
+			this.model + "|" + this.askingPrice + "|" +
+			this.dateAddedToCurrInventory + "|" + 
+			this.description + "|" + this.picURL + "|" +
+			this.eligibleForBid;
 		//TO DO LATER: SHOULD THIS BE INCLUDED IF NULL OR NOT... FOR READING IN FROM PDF? PRBLY NOT
 		if (this.priceSold != 0) {
-			result += this.priceSold + ",";
+			result += ("|" + this.priceSold);
 		}
 		if (this.buyer != null) {
-			result += this.buyer + ",";
+			result += "|" + this.buyer.formatData();
 		}
 		if (this.dateOfPurchase != null) {
-			result += this.dateOfPurchase;
+			result += "|" + this.dateOfPurchase;
 		}
 		return result;
 	}

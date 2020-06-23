@@ -1,7 +1,7 @@
 package com.claim;
 
-import java.awt.image.BufferedImage;
-import java.util.Date;
+import java.net.URL;
+import java.time.LocalDate;
 
 public class UsedVehicle extends Vehicle{
 	
@@ -15,10 +15,10 @@ public class UsedVehicle extends Vehicle{
 	}
 		
 	public UsedVehicle(Long id, String make, String model, double askingPrice, 
-			Date dateAddedToCurrInventory, String description, BufferedImage pic, 
+			LocalDate dateAddedToCurrInventory, String description, URL picURL, 
 			int miles, KbbCondition kbbCondition) {
 		super(id, make, model, askingPrice, dateAddedToCurrInventory, 
-			description, pic);
+			description, picURL);
 		this.miles = miles;
 		this.kbbCondition = kbbCondition;
 	}
@@ -38,23 +38,27 @@ public class UsedVehicle extends Vehicle{
 	public void setKbbCondition(KbbCondition kbbCondition) {
 		this.kbbCondition = kbbCondition;
 	}
-
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String formatData() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	@Override
 	public String toStringForCustomer() {
 		return "Make: " + this.make + " Model: " + this.model + "Price: " + this.askingPrice + " Description: " + this.description
 				+ "Mileage: " + this.miles + "Condition: " + this.kbbCondition;
+	}
+	
+	@Override
+	public String toString() {
+		String result = super.toString();
+		result += "Mileage: " + this.miles;
+		result += "KBB Condition: " + this.kbbCondition;
+		return result;
+	}
+	
+	@Override
+	public String formatData() {
+		String result = super.formatData();
+		result += "|" + this.miles;
+		result += "|" + this.kbbCondition;
+		return result;
 	}
 	
 	 
