@@ -10,12 +10,15 @@ import javax.imageio.ImageIO;
 public abstract class Vehicle {
 	
 	protected long id;
+	protected short year;
 	protected String make;
 	protected String model;
 	protected double askingPrice;
 	protected LocalDate dateAddedToCurrInventory;
 	protected String description;
 	//picture - will have to be an internet link ... or figure out file
+	//TO DO: LET'S CHANGE THIS TO protected String picFileName; THEN OUR .JSP CAN GIVE THE FILE PATH AND THEN CALL THIS
+	//still would be cooler to have URL b/c then we wouldn't have to manually add a new image any time we add a new car...
 	protected URL picURL;
 
 	protected boolean eligibleForBid;
@@ -31,9 +34,10 @@ public abstract class Vehicle {
 	}
 	
 	//overloaded constructor
-	public Vehicle(long id, String make, String model, double askingPrice, 
+	public Vehicle(long id, short year, String make, String model, double askingPrice, 
 			LocalDate dateAddedToCurrInventory, String description, URL picURL) {
 		this.id = id;
+		this.year = year;
 		this.make = make;
 		this.model = model;
 		this.askingPrice = askingPrice;
@@ -144,14 +148,22 @@ public abstract class Vehicle {
 	public void setEligibleForBid(boolean eligibleForBid) {
 		this.eligibleForBid = eligibleForBid;
 	}
+	
+	public short getYear() {
+		return year;
+	}
+
+	public void setYear(short year) {
+		this.year = year;
+	}
 
 	//will be used to display all details to admin - NewVehicle will use this & Used Vehicle will override it
 	public String toString() {
-		String result = "ID: " + this.id + "Make: " + this.make + 
-				"Model: " + this.model + "Asking Price: " + this.askingPrice + 
-				"Date Added to Current Inventory" +	this.dateAddedToCurrInventory + 
-				"Description" + this.description + "Pic URL:" + this.picURL + "," +
-				"Eligible for Bid:" + this.eligibleForBid;
+		String result = "ID: " + this.id + " Year: " + this.year + " Make: " + this.make + 
+				" Model: " + this.model + " Asking Price: " + this.askingPrice + 
+				" Date Added to Current Inventory: " +	this.dateAddedToCurrInventory + 
+				" Description: " + this.description + " Pic URL: " + this.picURL + "," +
+				" Eligible for Bid: " + this.eligibleForBid;
 		if (this.priceSold != 0) {
 			result += this.priceSold + ",";
 		}
@@ -169,20 +181,20 @@ public abstract class Vehicle {
 	
 	//NewVehicle will use this & Used Vehicle will override it
 	public String formatData() {
-		String result = this.id + "|" + this.make + "|" + 
-			this.model + "|" + this.askingPrice + "|" +
-			this.dateAddedToCurrInventory + "|" + 
-			this.description + "|" + this.picURL + "|" +
+		String result = this.id + "," + this.year + "," + this.make + "," + 
+			this.model + "," + this.askingPrice + "," +
+			this.dateAddedToCurrInventory + "," + 
+			this.description + "," + this.picURL + "," +
 			this.eligibleForBid;
 		//TO DO LATER: SHOULD THIS BE INCLUDED IF NULL OR NOT... FOR READING IN FROM PDF? PRBLY NOT
 		if (this.priceSold != 0) {
-			result += ("|" + this.priceSold);
+			result += ("," + this.priceSold);
 		}
 		if (this.buyer != null) {
-			result += "|" + this.buyer.formatData();
+			result += "," + this.buyer.formatData();
 		}
 		if (this.dateOfPurchase != null) {
-			result += "|" + this.dateOfPurchase;
+			result += "," + this.dateOfPurchase;
 		}
 		return result;
 	}

@@ -14,10 +14,10 @@ public class UsedVehicle extends Vehicle{
 		super();
 	}
 		
-	public UsedVehicle(Long id, String make, String model, double askingPrice, 
+	public UsedVehicle(long id, short year, String make, String model, double askingPrice, 
 			LocalDate dateAddedToCurrInventory, String description, URL picURL, 
 			int miles, KbbCondition kbbCondition) {
-		super(id, make, model, askingPrice, dateAddedToCurrInventory, 
+		super(id, year, make, model, askingPrice, dateAddedToCurrInventory, 
 			description, picURL);
 		this.miles = miles;
 		this.kbbCondition = kbbCondition;
@@ -41,23 +41,23 @@ public class UsedVehicle extends Vehicle{
 	
 	@Override
 	public String toStringForCustomer() {
-		return "Make: " + this.make + " Model: " + this.model + "Price: " + this.askingPrice + " Description: " + this.description
-				+ "Mileage: " + this.miles + "Condition: " + this.kbbCondition;
+		return "Year: " + this.year + " Make: " + this.make + " Model: " + this.model + " Price: " + this.askingPrice + " Description: " + this.description
+				+ " Mileage: " + this.miles + " Condition: " + this.kbbCondition;
 	}
 	
 	@Override
 	public String toString() {
 		String result = super.toString();
-		result += "Mileage: " + this.miles;
-		result += "KBB Condition: " + this.kbbCondition;
+		result += " Mileage: " + this.miles;
+		result += " KBB Condition: " + this.kbbCondition;
 		return result;
 	}
 	
 	@Override
 	public String formatData() {
 		String result = super.formatData();
-		result += "|" + this.miles;
-		result += "|" + this.kbbCondition;
+		result += "," + this.miles;
+		result += "," + this.kbbCondition;
 		return result;
 	}
 	

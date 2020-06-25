@@ -24,6 +24,9 @@ public class Dealership {
 	//to do: employees
 	
 	public Dealership() {
+		this.newInventory = new ArrayList<NewVehicle>();
+		this.usedInventory = new ArrayList<UsedVehicle>();
+		this.soldInventory = new ArrayList<Vehicle>();
 	}
 	
 	public Dealership(String name, ArrayList<NewVehicle> newInventory, ArrayList<UsedVehicle> usedInventory,
@@ -207,8 +210,8 @@ public class Dealership {
 				//dates are formatted 2019-01-01
 				Vehicle vehicle = createNewVehicleFromFile(vehicleInfo);
 				this.newInventory.add((NewVehicle)vehicle);
-				scanner.close();
 			}
+			scanner.close();
 		}catch(FileNotFoundException e) {
 			System.out.println("Error reading from file");
 		}
@@ -222,8 +225,8 @@ public class Dealership {
 				String vehicleInfo = scanner.nextLine();
 				Vehicle vehicle = createUsedVehicleFromFile(vehicleInfo);
 				this.usedInventory.add((UsedVehicle)vehicle);
-				scanner.close();
 			}
+			scanner.close();
 		}catch(FileNotFoundException e) {
 			System.out.println("Error reading from file");
 		}
@@ -236,16 +239,16 @@ public class Dealership {
 					while(scanner.hasNextLine()) {
 						Vehicle vehicle;
 						String vehicleInfo = scanner.nextLine();
-						String[] items = vehicleInfo.split("|");
-						if (items.length == 8 || items.length == 11) {
+						String[] items = vehicleInfo.split(",");
+						if (items.length == 9 || items.length == 12) {
 							vehicle = createNewVehicleFromFile(vehicleInfo);
 						}
 						else {
 							vehicle = createUsedVehicleFromFile(vehicleInfo);
 						}
 						this.soldInventory.add(vehicle);
-						scanner.close();
 					}
+					scanner.close();
 				}catch(FileNotFoundException e) {
 					System.out.println("Error reading from file");
 				}
@@ -254,7 +257,7 @@ public class Dealership {
 	
 	//to do: TRY TO CONSOLIDATE THE TOP PARTS
 	public UsedVehicle createUsedVehicleFromFile(String vehicleInfo) {
-		String[] items = vehicleInfo.split("|");
+		String[] items = vehicleInfo.split(",");
 		UsedVehicle vehicle = new UsedVehicle();
 		
 		for (int i=0; i<items.length; i++) {
@@ -262,22 +265,25 @@ public class Dealership {
 			case 0:
 				vehicle.setId(Long.parseLong(items[i].trim()));
 				break;
-			case 1:
-				vehicle.setMake(items[i].trim());
+			case 1: 
+				vehicle.setYear(Short.parseShort(items[i].trim()));
 				break;
 			case 2:
-				vehicle.setModel(items[i].trim());
+				vehicle.setMake(items[i].trim());
 				break;
 			case 3:
-				vehicle.setaskingPrice(Double.parseDouble(items[i].trim()));
+				vehicle.setModel(items[i].trim());
 				break;
 			case 4:
-				vehicle.setDateAddedToCurrInventory(LocalDate.parse(items[i].trim()));
+				vehicle.setaskingPrice(Double.parseDouble(items[i].trim()));
 				break;
 			case 5:
-				vehicle.setDescription(items[i].trim());
+				vehicle.setDateAddedToCurrInventory(LocalDate.parse(items[i].trim()));
 				break;
 			case 6:
+				vehicle.setDescription(items[i].trim());
+				break;
+			case 7:
 				URL picURL;
 				try {
 					picURL = new URL(items[i].trim());
@@ -287,18 +293,19 @@ public class Dealership {
 					e.printStackTrace();
 				}
 				break;
-			case 7:
-				vehicle.setEligibleForBid(Boolean.parseBoolean(items[i].trim()));
 			case 8:
-				if (items.length == 13) {
+				vehicle.setEligibleForBid(Boolean.parseBoolean(items[i].trim()));
+				break;
+			case 9:
+				if (items.length == 14) {
 					vehicle.setPriceSold(Double.parseDouble(items[i].trim()));
 				}
 				else {
 					vehicle.setMiles(Integer.parseInt(items[i].trim()));
 				}
 				break;
-			case 9:
-				if (items.length == 13) {
+			case 10:
+				if (items.length == 14) {
 					String[] items2 = items[i].trim().split(",");
 					Buyer buyer = new Buyer(items2[0], items2[1], items2[2], Long.parseLong(items2[3]));
 					vehicle.setBuyer(buyer);					
@@ -307,13 +314,13 @@ public class Dealership {
 					vehicle.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
 				}
 				break;
-			case 10:
+			case 11:
 				vehicle.setDateOfPurchase(LocalDate.parse(items[i].trim()));
 				break;
-			case 11:
+			case 12:
 				vehicle.setMiles(Integer.parseInt(items[i].trim()));
 				break;
-			case 12:
+			case 13:
 				vehicle.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
 			}
 		}
@@ -321,7 +328,7 @@ public class Dealership {
 	}
 	
 	public NewVehicle createNewVehicleFromFile(String vehicleInfo) {
-		String[] items = vehicleInfo.split("|");
+		String[] items = vehicleInfo.split(",");
 		NewVehicle vehicle = new NewVehicle();
 		
 		for (int i=0; i<items.length; i++) {
@@ -329,22 +336,25 @@ public class Dealership {
 			case 0:
 				vehicle.setId(Long.parseLong(items[i].trim()));
 				break;
-			case 1:
-				vehicle.setMake(items[i].trim());
+			case 1: 
+				vehicle.setYear(Short.parseShort(items[i].trim()));
 				break;
 			case 2:
-				vehicle.setModel(items[i].trim());
+				vehicle.setMake(items[i].trim());
 				break;
 			case 3:
-				vehicle.setaskingPrice(Double.parseDouble(items[i].trim()));
+				vehicle.setModel(items[i].trim());
 				break;
 			case 4:
-				vehicle.setDateAddedToCurrInventory(LocalDate.parse(items[i].trim()));
+				vehicle.setaskingPrice(Double.parseDouble(items[i].trim()));
 				break;
 			case 5:
-				vehicle.setDescription(items[i].trim());
+				vehicle.setDateAddedToCurrInventory(LocalDate.parse(items[i].trim()));
 				break;
 			case 6:
+				vehicle.setDescription(items[i].trim());
+				break;
+			case 7:
 				URL picURL;
 				try {
 					picURL = new URL(items[i].trim());
@@ -354,18 +364,18 @@ public class Dealership {
 					e.printStackTrace();
 				}
 				break;
-			case 7:
+			case 8:
 				vehicle.setEligibleForBid(Boolean.parseBoolean(items[i].trim()));
 				break;
-			case 8:
+			case 9:
 				vehicle.setPriceSold(Double.parseDouble(items[i].trim()));
 				break;
-			case 9:
+			case 10:
 				String[] items2 = items[i].trim().split(",");
 				Buyer buyer = new Buyer(items2[0], items2[1], items2[2], Long.parseLong(items2[3]));
 				vehicle.setBuyer(buyer);					
 				break;
-			case 10:
+			case 11:
 				vehicle.setDateOfPurchase(LocalDate.parse(items[i].trim()));
 				break;				
 			}

@@ -1,7 +1,7 @@
 package com.claim;
 
 public enum KbbCondition {
-	EXCELLENT("Excellent"), GOOD("Good"), FAIR("Fair"), POOR("Poor");
+	EXCELLENT("EXCELLENT"), GOOD("GOOD"), FAIR("FAIR"), POOR("POOR");
 	
 	private String kbbCondition;
 	
