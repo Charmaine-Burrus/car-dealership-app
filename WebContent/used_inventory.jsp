@@ -7,7 +7,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>New Inventory</title>
+	<title>Used Inventory</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link href="./styles/styles.css" rel="stylesheet">
 </head>
@@ -47,7 +47,7 @@
 <div class="container-fluid padding">
 <div class="row welcome text-center">
 	<div class="col-12">
-		<h1 class="display-4">The Best Selection of NEW Vehicles</h1>
+		<h1 class="display-4">The Best Selection of Pre-Owned Vehicles</h1>
 	</div>
 	<hr>
 </div>
@@ -56,7 +56,7 @@
 <!--- Cards -->
 <div class="container-fluid padding">
 <div class="row padding">
-	<c:forEach var="vehicle" items="${dealership.newInventory}">
+	<c:forEach var="vehicle" items="${dealership.usedInventory}">
 		<!--card 1-->
 		<div class="col-md-4">
 			<div class="card">
@@ -64,9 +64,12 @@
 				<div class="card-body">
 					<h4 class="card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
 					<p class="card-text">Price: $${vehicle.askingPrice}</p>
+					<p class="card-text">Mileage: ${vehicle.miles} miles. Condition: ${vehicle.kbbCondition}</p>
 					<p class="card-text">Description: ${vehicle.description}</p>
 					<c:if test="${vehicle.isEligibleForBid() == true}">
-						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
+						<form action="AddVehicleToSessionServlet" method="post">
+							<button type="submit" class="btn btn-outline-secondary" name="vehicleId" value="${vehicle.id}">Place a Bid</button>
+						</form>
 					</c:if>
 				</div>
 			</div>

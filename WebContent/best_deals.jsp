@@ -66,7 +66,9 @@
 						<h4 class="card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
 						<p class="card-text">Price: $${vehicle.askingPrice}</p>
 						<p class="card-text">Description: ${vehicle.description}</p>
-						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
+						<form action="AddVehicleToSessionServlet" method="post">
+							<button type="submit" class="btn btn-outline-secondary" name="vehicleId" value="${vehicle.id}">Place a Bid</button>
+						</form>
 					</div>
 				</div>
 			</div>	

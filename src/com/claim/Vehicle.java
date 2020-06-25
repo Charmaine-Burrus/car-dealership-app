@@ -1,13 +1,8 @@
 package com.claim;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
-
-import javax.imageio.ImageIO;
 
 public abstract class Vehicle {
 	

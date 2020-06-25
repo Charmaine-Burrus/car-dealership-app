@@ -70,6 +70,40 @@ public class Dealership {
 		this.latestID = latestID;
 	}
 	
+	public Vehicle getVehicleById(long id) {
+		for(Vehicle vehicle : this.newInventory) {
+	        if(vehicle.getId() == id) {
+	            return vehicle;
+	        }
+	    }
+		for(Vehicle vehicle : this.usedInventory) {
+	        if(vehicle.getId() == id) {
+	            return vehicle;
+	        }
+	    }
+		for(Vehicle vehicle : this.soldInventory) {
+	        if(vehicle.getId() == id) {
+	            return vehicle;
+	        }
+	    }
+	    return null;
+	}
+	
+	//MAY GET RID OF THIS IF DON'T USE IT IN SELLVEHICLE METHOD
+	public String getInventoryByVehicleId(long id) {
+		for(Vehicle vehicle : this.newInventory) {
+	        if(vehicle.getId() == id) {
+	            return "new";
+	        }
+	    }
+		for(Vehicle vehicle : this.usedInventory) {
+	        if(vehicle.getId() == id) {
+	            return "used";
+	        }
+	    }
+	    return null;
+	}
+	
 	//to do: COULD PROBABLY MAKE ALL THE INVENTORIES HASHSETS INSTEAD IF JUST ADDING AND REMOVING AND PRINTING (sorted hashset)
 
 //	public void addToInventory(//all details for vehicle?) {
@@ -82,12 +116,24 @@ public class Dealership {
 //		//set dateAddedToInventory to today
 //	}
 	
-//	public void sellVehicle() {
-//		//update daysold
-//		//update buyer
-//		//update price sold
-//		//transfer from one inventory to the other
-//	} 
+	public void sellVehicle(Vehicle vehicle, Buyer buyer, double priceSold) {
+//		//TO DO: SEE IF IT STILL WORKS WITHOUT THIS (IT SHOULD B/C REFERENCE TYPE)
+//		Vehicle vehicle = this.getVehicleById(vehicle.getId());
+		//update dateOfPurchase
+		vehicle.setDateOfPurchase(LocalDate.now());
+		//update buyer
+		vehicle.setBuyer(buyer);
+		//update price sold
+		vehicle.setPriceSold(priceSold);
+		//transfer from from current to sold inventory
+		this.newInventory.remove(vehicle);
+		this.usedInventory.remove(vehicle);
+		this.soldInventory.add(vehicle);
+		//write inventories to file - wondering if this will overwrite the old?
+		saveAllInventoriesToFiles();
+		//reset inventories
+		readInventoriesFromFile();
+	} 
 	
 	//to do: simplify this by doing something more similar to phonebook app
 	public void saveAllInventoriesToFiles() {
