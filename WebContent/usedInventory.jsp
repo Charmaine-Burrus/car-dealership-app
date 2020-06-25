@@ -66,7 +66,7 @@
 					<p class="card-text">Price: $${vehicle.askingPrice}</p>
 					<p class="card-text">Mileage: ${vehicle.miles} miles. Condition: ${vehicle.kbbCondition}</p>
 					<p class="card-text">Description: ${vehicle.description}</p>
-					<c:if test="${vehicle.eligibleForBid == true}">
+					<c:if test="${vehicle.isEligibleForBid() == true}">
 						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
 					</c:if>
 				</div>

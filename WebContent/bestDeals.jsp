@@ -1,24 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.claim.*" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Burrus Automotive</title>
+	<title>Used Inventory</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link href="./styles/styles.css" rel="stylesheet">
-	<!-- 	<link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
-	<!-- trying to initialize some stuff when the page loads	-->
-	<% Dealership dealership = new Dealership(); %>
-	<% dealership.readInventoriesFromFile(); %>
-	<% session.setAttribute("dealership", dealership); %>
-	
 </head>
+
 <body>
+
 <!-- Navigation -->
 <!-- navbar is styled in CSS to have more padding -->
 <!--md is the breakpoint where it will expand from mobile to regular -->
@@ -48,26 +43,11 @@
 </div>
 </nav>	
 
-<!--- Welcome Section to do: make this look better... maybe add caroseul with current staff pics-->
-<!-- padding adds space b/t the container and rows.. welcome is a class we'll make to style this -->
-<div class="container-fluid padding">
-	<div class="row welcome text-center">
-		<div class="col-12">
-			<h1 class="display-4">Burrus Automotive</h1>
-		</div>
-		<!--used to separate content -->
-		<hr>
-		<div class="col-12">
-			<p class="lead">The region's go-to for all your automotive needs.</p>
-		</div>
-	</div>
-</div>
-
 <!--- Header -->
 <div class="container-fluid padding">
 <div class="row welcome text-center">
 	<div class="col-12">
-		<h1 class="display-4">View Our Extensive Inventory</h1>
+		<h1 class="display-4">The Best Deals in Town</h1>
 	</div>
 	<hr>
 </div>
@@ -76,63 +56,42 @@
 <!--- Cards -->
 <div class="container-fluid padding">
 <div class="row padding">
-	<!--card 1-->
-	<div class="col-md-4">
-		<div class="card h-200">
-			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/new vehicles.jpg">
-			<div class="card-body">
-				<h4 class="card-title">New Vehicles</h4>
-				<p class="card-text">Brand new cars. Yay!</p>
-				<a href="newInventory.jsp" class="btn btn-outline-secondary">View New Vehicles</a>
-			</div>
-		</div>
-	</div>	
-
-	<!--card 2-->
-	<div class="col-md-4">
-		<div class="card h-200">
-			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/used vehicles.jpg">
-			<div class="card-body">
-				<h4 class="card-title">Used Vehicles</h4>
-				<p class="card-text">Choose from our pre-owned models.</p>
-				<a href="usedInventory.jsp" class="btn btn-outline-secondary">View Used Vehicles</a>
-			</div>
-		</div>
-	</div>	
-
-	<!--card 3-->
-	<div class="col-md-4">
-		<div class="card h-200">
-			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/deals.jpg">
-			<div class="card-body">
-				<h4 class="card-title">Best Deals</h4>
-				<p class="card-text">These vehicles have been on our lot for 120 days or more and are offered for bid at a special discount price.</p>
-				<a href="bestDeals.jsp" class="btn btn-outline-secondary">View the Deals</a>
-			</div>
-		</div>
-	</div>	
+	<c:forEach var="vehicle" items="${dealership.newInventory}">
+		<c:if test="${vehicle.isEligibleForBid() == true}">
+			<!--card 1-->
+			<div class="col-md-4">
+				<div class="card">
+					<img class="card-img-top inv-pics" src="${vehicle.picURL}">
+					<div class="card-body">
+						<h4 class="card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
+						<p class="card-text">Price: $${vehicle.askingPrice}</p>
+						<p class="card-text">Description: ${vehicle.description}</p>
+						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
+					</div>
+				</div>
+			</div>	
+		</c:if>
+	</c:forEach>
+	
+	<c:forEach var="vehicle" items="${dealership.usedInventory}">
+		<c:if test="${vehicle.isEligibleForBid() == true}">
+			<!--card 1-->
+			<div class="col-md-4">
+				<div class="card">
+					<img class="card-img-top inv-pics" src="${vehicle.picURL}">
+					<div class="card-body">
+						<h4 class="card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
+						<p class="card-text">Price: $${vehicle.askingPrice}</p>
+						<p class="card-text">Mileage: ${vehicle.miles} miles. Condition: ${vehicle.kbbCondition}</p>
+						<p class="card-text">Description: ${vehicle.description}</p>
+						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
+					</div>
+				</div>
+			</div>	
+		</c:if>
+	</c:forEach>
 </div>
 </div>
-
-<!--- Connect -->
-<div class="container-fluid padding">
-<div class="row text-center padding">
-	<div class="col-12">
-		<h2>Connect</h2>
-	</div>
-	<!-- we wanting padding to separate the icons from the heading, and we also have a social class that we'll style later -->
-	<div class="col-12 social padding">
-		<!--below we have font-awesome references again -->
-		<a href="#"><i class="fab fa-facebook"></i></a>
-		<a href="#"><i class="fab fa-twitter"></i></a>
-		<a href="#"><i class="fab fa-instagram"></i></a>
-	</div>
-</div>
-</div>
-
 
 <!--- Footer -->
 <footer>

@@ -65,9 +65,9 @@ public class Buyer {
 	
 	public String formatData() {
 		return this.firstName +
-				"," + this.lastName +
-				"," + this.email +
-				"," + this.phoneNumber;
+				";" + this.lastName +
+				";" + this.email +
+				";" + this.phoneNumber;
 	}
 
 }
