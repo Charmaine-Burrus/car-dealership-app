@@ -41,39 +41,66 @@
 		</ul>
 	</div>
 </div>
-</nav>	
+</nav>
 
-<!--- Header -->
+<!--- Two Column Section -->
+<!-- this one will have text on left and image on right for large screens.. stacked for smaller ones -->
 <div class="container-fluid padding">
-<div class="row welcome text-center">
-	<div class="col-12">
-		<h1 class="display-4">The Best Selection of Pre-Owned Vehicles</h1>
-	</div>
-	<hr>
-</div>
-</div>
-
-<!--- Cards -->
-<div class="container-fluid padding">
-<div class="row padding">
-	<c:forEach var="vehicle" items="${dealership.usedInventory}">
-		<!--card 1-->
-		<div class="col-md-4">
-			<div class="card">
-				<img class="card-img-top inv-pics" src="${vehicle.picURL}">
-				<div class="card-body">
-					<h4 class="card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
-					<p class="card-text">Price: $${vehicle.askingPrice}</p>
-					<p class="card-text">Mileage: ${vehicle.miles} miles. Condition: ${vehicle.kbbCondition}</p>
-					<p class="card-text">Description: ${vehicle.description}</p>
-					<c:if test="${vehicle.isEligibleForBid() == true}">
-						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
-					</c:if>
+	<div class="row padding">
+		<!-- so this will only take up half the page in large, but full page with md or smaller. You only need to add the breakpoint for smaller than full-screen.. so don't need to include 12 here or anywhere-->
+		<div class="col-md-12 col-lg-6 center">
+			<h2>${vehicle.year} ${vehicle.make} ${vehicle.model}</h2>
+			<p>Price: $${vehicle.askingPrice}</p>
+			<p>Description: ${vehicle.description}</p>
+			<!-- break before the button -->
+			<br>
+			
+			<form action="PlaceBidServlet" method="post">
+				
+				<div class="form-row mb-2">
+                        <div class="col">
+                            <input type="text" class="form-control" name="firstName" placeholder="First Name"/>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="lastName" placeholder="Last Name"/>
+                        </div>
+                </div>
+				
+				<div class="form-row mb-2">
+                        <div class="col">
+                            <input type="text" class="form-control" name="email" placeholder="Email Address"/>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" name="phone" placeholder="Phone Number"/>
+                        </div>
+                </div>
+                
+                <c:if test="${bidSuccessful != null}">
+                	<div class="alert alert-danger" role="alert">
+  						Offer was too low! Offer must be at least 90% of asking price.
+					</div>
+				</c:if>
+                
+                <div class="form-row mb-2">
+                        <div class="col">
+                            Offer*<span> <input type="text" class="form-control" name="offeredPrice" placeholder="${vehicle.askingPrice}"/> </span>
+                            *Offer must be at least 90% of asking price.
+                        </div>
+                </div>
+				
+				<div>
+					<button type="submit" class="btn btn-primary mt-2">Submit Bid</button>
 				</div>
-			</div>
-		</div>	
-	</c:forEach>
-</div>
+				
+			</form>
+			
+		</div>
+		<!-- see this is the same as the type above even though that specified 12 -->
+		<div class="col-lg-6">
+			<!-- fluid means it will be responsive and will move to take up it's whole div HOW COME IT HAS A BORDER?-->
+			<img src="${vehicle.picURL}" class="img-fluid">
+		</div>
+	</div>
 </div>
 
 <!--- Footer -->

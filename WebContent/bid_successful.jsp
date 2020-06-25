@@ -1,24 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.claim.*" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Burrus Automotive</title>
+	<title>Used Inventory</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link href="./styles/styles.css" rel="stylesheet">
-	<!-- 	<link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
-	<!-- trying to initialize some stuff when the page loads	-->
-	<% Dealership dealership = new Dealership(); %>
-	<% dealership.readInventoriesFromFile(); %>
-	<% session.setAttribute("dealership", dealership); %>
-	
 </head>
+
 <body>
+
 <!-- Navigation -->
 <!-- navbar is styled in CSS to have more padding -->
 <!--md is the breakpoint where it will expand from mobile to regular -->
@@ -48,91 +43,26 @@
 </div>
 </nav>	
 
-<!--- Welcome Section to do: make this look better... maybe add caroseul with current staff pics-->
-<!-- padding adds space b/t the container and rows.. welcome is a class we'll make to style this -->
+<!--- Two Column Section -->
+<!-- this one will have text on left and image on right for large screens.. stacked for smaller ones -->
 <div class="container-fluid padding">
-	<div class="row welcome text-center">
-		<div class="col-12">
-			<h1 class="display-4">Burrus Automotive</h1>
+	<div class="row padding">
+		<!-- so this will only take up half the page in large, but full page with md or smaller. You only need to add the breakpoint for smaller than full-screen.. so don't need to include 12 here or anywhere-->
+		<div class="col-md-12 col-lg-6 center">
+			<h2>Congratulations on your new vehicle!!</h2>
+			<h4>${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
+			<p>Price: $${vehicle.soldPrice}</p>
+			<p>Give us a call to schedule pickup of your vehicle at our nearest location.</p>
+			<p>Please bring payment, Driver's License, and proof of insurance.</p>
+			<p>Contact info & locations are listed at the bottom of this page.</p>	
 		</div>
-		<!--used to separate content -->
-		<hr>
-		<div class="col-12">
-			<p class="lead">The region's go-to for all your automotive needs.</p>
+		<!-- see this is the same as the type above even though that specified 12 -->
+		<div class="col-lg-6">
+			<!-- fluid means it will be responsive and will move to take up it's whole div HOW COME IT HAS A BORDER?-->
+			<img src="${vehicle.picURL}" class="img-fluid">
 		</div>
 	</div>
 </div>
-
-<!--- Header -->
-<div class="container-fluid padding">
-<div class="row welcome text-center">
-	<div class="col-12">
-		<h1 class="display-4">View Our Extensive Inventory</h1>
-	</div>
-	<hr>
-</div>
-</div>
-
-<!--- Cards -->
-<div class="container-fluid padding">
-<div class="row padding">
-	<!--card 1-->
-	<div class="col-md-4">
-		<div class="card">
-			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/new vehicles.jpg">
-			<div class="card-body">
-				<h4 class="card-title">New Vehicles</h4>
-				<p class="card-text">Brand new cars. Yay!</p>
-				<a href="new_inventory.jsp" class="btn btn-outline-secondary">View New Vehicles</a>
-			</div>
-		</div>
-	</div>	
-
-	<!--card 2-->
-	<div class="col-md-4">
-		<div class="card">
-			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/used vehicles.jpg">
-			<div class="card-body">
-				<h4 class="card-title">Used Vehicles</h4>
-				<p class="card-text">Choose from our pre-owned models.</p>
-				<a href="used_inventory.jsp" class="btn btn-outline-secondary">View Used Vehicles</a>
-			</div>
-		</div>
-	</div>	
-
-	<!--card 3-->
-	<div class="col-md-4">
-		<div class="card">
-			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/deals.jpg">
-			<div class="card-body">
-				<h4 class="card-title">Best Deals</h4>
-				<p class="card-text">These vehicles have been on our lot for 120 days or more and are offered for bid at a special discount price.</p>
-				<a href="best_deals.jsp" class="btn btn-outline-secondary">View the Deals</a>
-			</div>
-		</div>
-	</div>	
-</div>
-</div>
-
-<!--- Connect -->
-<div class="container-fluid padding">
-<div class="row text-center padding">
-	<div class="col-12">
-		<h2>Connect</h2>
-	</div>
-	<!-- we wanting padding to separate the icons from the heading, and we also have a social class that we'll style later -->
-	<div class="col-12 social padding">
-		<!--below we have font-awesome references again -->
-		<a href="#"><i class="fab fa-facebook"></i></a>
-		<a href="#"><i class="fab fa-twitter"></i></a>
-		<a href="#"><i class="fab fa-instagram"></i></a>
-	</div>
-</div>
-</div>
-
 
 <!--- Footer -->
 <footer>
