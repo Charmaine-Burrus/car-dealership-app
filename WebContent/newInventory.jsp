@@ -65,7 +65,7 @@
 					<h4 class="card-title">${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
 					<p class="card-text">Price: $${vehicle.askingPrice}</p>
 					<p class="card-text">Description: ${vehicle.description}</p>
-					<c:if test="${vehicle.eligibleForBid == true}">
+					<c:if test="${vehicle.isEligibleForBid() == true}">
 						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
 					</c:if>
 				</div>

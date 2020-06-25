@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 import javax.imageio.ImageIO;
 
@@ -16,14 +18,8 @@ public abstract class Vehicle {
 	protected double askingPrice;
 	protected LocalDate dateAddedToCurrInventory;
 	protected String description;
-	//picture - will have to be an internet link ... or figure out file
-	//TO DO: LET'S CHANGE THIS TO protected String picFileName; THEN OUR .JSP CAN GIVE THE FILE PATH AND THEN CALL THIS
-	//still would be cooler to have URL b/c then we wouldn't have to manually add a new image any time we add a new car...
+	//alternatively, this could be a file a file name.. and the front end has file path + this (or this could be final path + name or separate final file path)
 	protected URL picURL;
-
-	protected boolean eligibleForBid;
-	
-	protected BufferedImage pic;
 	
 	protected double priceSold;
 	protected Buyer buyer;
@@ -44,13 +40,6 @@ public abstract class Vehicle {
 		this.dateAddedToCurrInventory = dateAddedToCurrInventory;
 		this.description = description;
 		this.picURL = picURL;
-		
-		this.eligibleForBid = false;
-		try {
-			this.pic = ImageIO.read(picURL);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public long getId() {
@@ -116,14 +105,6 @@ public abstract class Vehicle {
 	public void setPicURL(URL picURL) {
 		this.picURL = picURL;
 	}
-	
-	public void setPic(BufferedImage pic) {
-		this.pic = pic;
-	}
-	
-	public BufferedImage getPic() {
-		return this.pic;
-	}
 
 	public double getPriceSold() {
 		return priceSold;
@@ -140,14 +121,6 @@ public abstract class Vehicle {
 	public void setBuyer(Buyer buyer) {
 		this.buyer = buyer;
 	}
-
-	public boolean isEligibleForBid() {
-		return eligibleForBid;
-	}
-
-	public void setEligibleForBid(boolean eligibleForBid) {
-		this.eligibleForBid = eligibleForBid;
-	}
 	
 	public short getYear() {
 		return year;
@@ -162,8 +135,7 @@ public abstract class Vehicle {
 		String result = "ID: " + this.id + " Year: " + this.year + " Make: " + this.make + 
 				" Model: " + this.model + " Asking Price: " + this.askingPrice + 
 				" Date Added to Current Inventory: " +	this.dateAddedToCurrInventory + 
-				" Description: " + this.description + " Pic URL: " + this.picURL + "," +
-				" Eligible for Bid: " + this.eligibleForBid;
+				" Description: " + this.description + " Pic URL: " + this.picURL + ",";
 		if (this.priceSold != 0) {
 			result += this.priceSold + ",";
 		}
@@ -184,8 +156,7 @@ public abstract class Vehicle {
 		String result = this.id + "," + this.year + "," + this.make + "," + 
 			this.model + "," + this.askingPrice + "," +
 			this.dateAddedToCurrInventory + "," + 
-			this.description + "," + this.picURL + "," +
-			this.eligibleForBid;
+			this.description + "," + this.picURL;
 		//TO DO LATER: SHOULD THIS BE INCLUDED IF NULL OR NOT... FOR READING IN FROM PDF? PRBLY NOT
 		if (this.priceSold != 0) {
 			result += ("," + this.priceSold);
@@ -219,6 +190,15 @@ public abstract class Vehicle {
 				return 1;
 			}
 		}
+	}
+	
+	public boolean isEligibleForBid() {
+		LocalDate today = LocalDate.now();
+		long daysInInventory = ChronoUnit.DAYS.between(this.dateAddedToCurrInventory, today);
+		if (daysInInventory >= 120) {
+			return true;
+		}
+		return false;
 	}
 
 }
