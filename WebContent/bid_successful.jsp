@@ -51,7 +51,7 @@
 		<div class="col-md-12 col-lg-6 center">
 			<h2>Congratulations on your new vehicle!!</h2>
 			<h4>${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
-			<p>Price: $${vehicle.soldPrice}</p>
+			<p>Price: $${vehicle.priceSold}</p>
 			<p>Give us a call to schedule pickup of your vehicle at our nearest location.</p>
 			<p>Please bring payment, Driver's License, and proof of insurance.</p>
 			<p>Contact info & locations are listed at the bottom of this page.</p>	
