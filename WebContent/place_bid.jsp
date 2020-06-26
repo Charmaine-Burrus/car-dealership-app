@@ -33,10 +33,10 @@
 		<!-- this gives us all our links in navbar navbar-nav is in CSS-->
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="#">Home</a>
+				<a class="nav-link" href="index.jsp">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Admin Login</a>
+				<a class="nav-link" href="admin_login.jsp">Admin Login</a>
 			</li>
 		</ul>
 	</div>
@@ -75,7 +75,7 @@
                         </div>
                 </div>
                 
-                <c:if test="${bidSuccessful != null}">
+                <c:if test="${bidSuccessful == false}">
                 	<div class="alert alert-danger" role="alert">
   						Offer was too low! Offer must be at least 90% of asking price.
 					</div>

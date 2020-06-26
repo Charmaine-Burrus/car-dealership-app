@@ -16,8 +16,8 @@
 	<% Dealership dealership = new Dealership(); %>
 	<% dealership.readInventoriesFromFile(); %>
 	<% session.setAttribute("dealership", dealership); %>
-	
 </head>
+
 <body>
 <!-- Navigation -->
 <!-- navbar is styled in CSS to have more padding -->
@@ -41,7 +41,7 @@
 				<a class="nav-link" href="index.jsp">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Admin Login</a>
+				<a class="nav-link" href="admin_login.jsp">Admin Login</a>
 			</li>
 		</ul>
 	</div>
@@ -65,10 +65,10 @@
 
 <!--- Header -->
 <div class="container-fluid padding">
-<div class="row welcome text-center">
-	<div class="col-12">
-		<h1 class="display-4">View Our Extensive Inventory</h1>
-	</div>
+	<div class="row welcome text-center">
+		<div class="col-12">
+			<h1 class="display-4">View Our Extensive Inventory</h1>
+		</div>
 	<hr>
 </div>
 </div>
@@ -80,7 +80,7 @@
 	<div class="col-md-4">
 		<div class="card">
 			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/new vehicles.jpg">
+			<img class="card-img-top home-pics" src="img/new vehicles.jpg">
 			<div class="card-body">
 				<h4 class="card-title">New Vehicles</h4>
 				<p class="card-text">Brand new cars. Yay!</p>
@@ -93,7 +93,7 @@
 	<div class="col-md-4">
 		<div class="card">
 			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/used vehicles.jpg">
+			<img class="card-img-top home-pics" src="img/used vehicles.jpg">
 			<div class="card-body">
 				<h4 class="card-title">Used Vehicles</h4>
 				<p class="card-text">Choose from our pre-owned models.</p>
@@ -106,7 +106,7 @@
 	<div class="col-md-4">
 		<div class="card">
 			<!--img will be at the top of the card, not bottom or mid-->
-			<img class="card-img-top inv-pics" src="img/deals.jpg">
+			<img class="card-img-top home-pics" src="img/deals.jpg">
 			<div class="card-body">
 				<h4 class="card-title">Best Deals</h4>
 				<p class="card-text">These vehicles have been on our lot for 120 days or more and are offered for bid at a special discount price.</p>
