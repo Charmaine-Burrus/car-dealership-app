@@ -20,8 +20,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top"> 
 <!--container fluid takes up 100% of the screen-->
 <div class="container-fluid">
-	<!-- adding a logo at the top.. with href="#" just takes you to the top of the current page.. can be used as a place saver ... notice the nav bar expands to hold the image-->
-	<a class="navbar-brand" href="#"><img src="img/Burrus automotive small.png"></a>
 	<!-- this starts our navbar dropdown/toggler -->
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"> 
 		<!-- this gives an icon which makes the navbar-toggler look way cooler AT THIS POINT HIS IS SHOWING A WHOLE DROP-DOWN-->
@@ -36,7 +34,7 @@
 				<a class="nav-link" href="index.jsp">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Admin Login</a>
+				<a class="nav-link" href="admin_login.jsp">Admin Login</a>
 			</li>
 		</ul>
 	</div>
@@ -48,8 +46,9 @@
 <div class="container-fluid padding">
 	<div class="row padding">
 		<!-- so this will only take up half the page in large, but full page with md or smaller. You only need to add the breakpoint for smaller than full-screen.. so don't need to include 12 here or anywhere-->
-		<div class="col-md-12 col-lg-6 center">
+		<div class="col-md-12 col-lg-6 center text-center">
 			<h2>Congratulations on your new vehicle!!</h2>
+			<img class="center" src="img/Burrus automotive small.png"></a>
 			<h4>${vehicle.year} ${vehicle.make} ${vehicle.model}</h4>
 			<p>Price: $${vehicle.priceSold}</p>
 			<p>Give us a call to schedule pickup of your vehicle at our nearest location.</p>

@@ -33,10 +33,10 @@
 		<!-- this gives us all our links in navbar navbar-nav is in CSS-->
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="#">Home</a>
+				<a class="nav-link" href="index.jsp">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Admin Login</a>
+				<a class="nav-link" href="admin_login.jsp">Admin Login</a>
 			</li>
 		</ul>
 	</div>

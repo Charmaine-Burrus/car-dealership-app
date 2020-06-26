@@ -33,10 +33,10 @@
 		<!-- this gives us all our links in navbar navbar-nav is in CSS-->
 		<ul class="navbar-nav ml-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="#">Home</a>
+				<a class="nav-link" href="index.jsp">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Admin Login</a>
+				<a class="nav-link" href="admin_login.jsp">Admin Login</a>
 			</li>
 		</ul>
 	</div>
@@ -86,7 +86,9 @@
 						<p class="card-text">Price: $${vehicle.askingPrice}</p>
 						<p class="card-text">Mileage: ${vehicle.miles} miles. Condition: ${vehicle.kbbCondition}</p>
 						<p class="card-text">Description: ${vehicle.description}</p>
-						<a href="#" class="btn btn-outline-secondary">Place a Bid</a>
+						<form action="AddVehicleToSessionServlet" method="post">
+							<button type="submit" class="btn btn-outline-secondary" name="vehicleId" value="${vehicle.id}">Place a Bid</button>
+						</form>
 					</div>
 				</div>
 			</div>	

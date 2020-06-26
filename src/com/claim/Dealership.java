@@ -131,8 +131,6 @@ public class Dealership {
 		this.soldInventory.add(vehicle);
 		//write inventories to file - wondering if this will overwrite the old?
 		saveAllInventoriesToFiles();
-		//reset inventories
-		readInventoriesFromFile();
 	} 
 	
 	//to do: simplify this by doing something more similar to phonebook app
