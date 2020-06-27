@@ -133,6 +133,41 @@ public class Dealership {
 		saveAllInventoriesToFiles();
 	} 
 	
+	public ArrayList<String> getAllModels() {
+		ArrayList<String> allModels = new ArrayList<String>();
+		for (Vehicle vehicle : this.newInventory) {
+			//this may not work if it's not based on .equals
+			if (!allModels.contains(vehicle.getModel()))
+				allModels.add(vehicle.getModel());
+		}
+		for (Vehicle vehicle : this.usedInventory) {
+			//this may not work if it's not based on .equals
+			if (!allModels.contains(vehicle.getModel()))
+				allModels.add(vehicle.getModel());
+		}
+		return allModels;
+	}
+	
+	//can I use this with a checkbox select(and read it in as an array of Models?)   
+	public ArrayList<Vehicle> getVehiclesOfModel(String model, boolean includeNew, boolean includeUsed) {
+		ArrayList<Vehicle> modelArray = new ArrayList<Vehicle>();
+		if (includeNew == true) {
+			for (Vehicle vehicle : this.newInventory) {
+				if (vehicle.getModel().equals(model)) {
+					modelArray.add(vehicle);
+				}
+			}
+		}
+		if (includeUsed == true) {
+			for (Vehicle vehicle : this.usedInventory) {
+				if (vehicle.getModel().equals(model)) {
+					modelArray.add(vehicle);
+				}
+			}
+		}
+		return modelArray;
+	}
+	
 	//to do: simplify this by doing something more similar to phonebook app
 	public void saveAllInventoriesToFiles() {
 		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
