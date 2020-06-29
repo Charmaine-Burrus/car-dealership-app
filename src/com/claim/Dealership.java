@@ -20,8 +20,8 @@ public class Dealership {
 	private ArrayList<NewVehicle> newInventory;
 	private ArrayList<UsedVehicle> usedInventory;
 	private ArrayList<Vehicle> soldInventory;
-	private int latestID;
-	//to do: employees
+	private long latestVehicleId;
+	//to do: array of employees & addEmplyee method which assigns the next id number //read in employees and parse employee info
 	
 	public Dealership() {
 		this.newInventory = new ArrayList<NewVehicle>();
@@ -30,12 +30,12 @@ public class Dealership {
 	}
 	
 	public Dealership(String name, ArrayList<NewVehicle> newInventory, ArrayList<UsedVehicle> usedInventory,
-			 ArrayList<Vehicle> soldInventory, int latestID) { //ArrayList<Vehicle> over120DaysInventory,
+			 ArrayList<Vehicle> soldInventory, long latestVehicleId) { //ArrayList<Vehicle> over120DaysInventory,
 		this.name = name;
 		this.newInventory = newInventory; 
 		this.usedInventory = usedInventory;
 		this.soldInventory = soldInventory;
-		this.latestID = latestID;
+		this.latestVehicleId = latestVehicleId;
 	}
 	
 	public String getName() {
@@ -63,11 +63,11 @@ public class Dealership {
 	public void setSoldInventory(ArrayList<Vehicle> soldInventory) {
 		this.soldInventory = soldInventory;
 	}
-	public int getLatestID() {
-		return latestID;
+	public long getLatestID() {
+		return this.latestVehicleId;
 	}
-	public void setLatestID(int latestID) {
-		this.latestID = latestID;
+	public void setLatestID(long latestVehicleId) {
+		this.latestVehicleId = latestVehicleId;
 	}
 	
 	public Vehicle getVehicleById(long id) {
