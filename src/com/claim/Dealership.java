@@ -21,21 +21,27 @@ public class Dealership {
 	private ArrayList<UsedVehicle> usedInventory;
 	private ArrayList<Vehicle> soldInventory;
 	private long latestVehicleId;
-	//to do: array of employees & addEmplyee method which assigns the next id number //read in employees and parse employee info
+	//to do: read in employees and parse employee info
+	private ArrayList<Employee> employees;
+	private int latestEmployeeId;
 	
 	public Dealership() {
 		this.newInventory = new ArrayList<NewVehicle>();
 		this.usedInventory = new ArrayList<UsedVehicle>();
 		this.soldInventory = new ArrayList<Vehicle>();
+		this.employees = new ArrayList<Employee>();
+		this.latestEmployeeId = 1000;
 	}
 	
 	public Dealership(String name, ArrayList<NewVehicle> newInventory, ArrayList<UsedVehicle> usedInventory,
-			 ArrayList<Vehicle> soldInventory, long latestVehicleId) { //ArrayList<Vehicle> over120DaysInventory,
+			 ArrayList<Vehicle> soldInventory, long latestVehicleId, ArrayList<Employee> employees, int latestEmployeeId) { 
 		this.name = name;
 		this.newInventory = newInventory; 
 		this.usedInventory = usedInventory;
 		this.soldInventory = soldInventory;
 		this.latestVehicleId = latestVehicleId;
+		this.employees = employees;
+		this.latestEmployeeId = latestEmployeeId;
 	}
 	
 	public String getName() {
@@ -109,12 +115,19 @@ public class Dealership {
 //	public void addToInventory(//all details for vehicle?) {
 //		//LOOK BACK AT HOW I DID LIBRARY AND PHONEBOOK
 //		//make a Vehicle with these details
-//		//set id & everthing else
+//		//set id & everything else
 //		//update most recent id
 //		//if the vehicle is a newVehicle add to newInventory  //TO DO: How do I do this?
 //		//if the vehicle is a usedVehicle add to used
 //		//set dateAddedToInventory to today
 //	}
+	
+	//addEmployee method which assigns the next id number 
+	public void addEmployee(String firstName, String lastName, String email, long phoneNumber) {
+		Employee employee = new Employee(firstName, lastName, email, phoneNumber);
+		employee.setEmployeeId(++latestEmployeeId);
+		employees.add(employee);
+	}
 	
 	public void sellVehicle(Vehicle vehicle, Buyer buyer, double priceSold) {
 //		//TO DO: SEE IF IT STILL WORKS WITHOUT THIS (IT SHOULD B/C REFERENCE TYPE)
@@ -129,8 +142,8 @@ public class Dealership {
 		this.newInventory.remove(vehicle);
 		this.usedInventory.remove(vehicle);
 		this.soldInventory.add(vehicle);
-		//write inventories to file - wondering if this will overwrite the old?
-		saveAllInventoriesToFiles();
+		//write inventories to file
+		saveAllToFiles();
 	} 
 	
 	public ArrayList<String> getAllModels() {
@@ -169,56 +182,135 @@ public class Dealership {
 	}
 	
 	//to do: simplify this by doing something more similar to phonebook app
-	public void saveAllInventoriesToFiles() {
+	//I tried to condense it into a simpler method saveArrayListToFile.. but the casting and generalization didn't work
+//	public void saveAllInventoriesToFiles() {
+//		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
+//		
+//		//for new vehicles
+//		String filePath = path + "newVehicles" + ".txt";
+//		//BW takes a FW argument
+//		try {
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+//			String inventoryString = "";
+//			//adds each Vehicle to the string using the Vehicle's formatData method
+//			for (Vehicle vehicle : this.newInventory) {
+//				inventoryString += (vehicle.formatData() + "\n");
+//			}
+//			bw.write(inventoryString);
+//			bw.close();  
+//		}catch (IOException e) {
+//			System.out.println("Error writing to file");
+//		}
+//		
+//		//for used vehicles
+//		filePath = path + "usedVehicles" + ".txt";
+//		//BW takes a FW argument
+//		try {
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+//			String inventoryString = "";
+//			//adds each Vehicle to the string using the Vehicle's formatData method
+//			for (Vehicle vehicle : this.usedInventory) {
+//				inventoryString += (vehicle.formatData() + "\n");
+//			}
+//			bw.write(inventoryString);
+//			bw.close();  
+//		}catch (IOException e) {
+//			System.out.println("Error writing to file");
+//		}
+//		
+//		//for sold vehicles
+//		filePath = path + "soldVehicles" + ".txt";
+//		//BW takes a FW argument
+//		try {
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+//			String inventoryString = "";
+//			//adds each Vehicle to the string using the Vehicle's formatData method
+//			for (Vehicle vehicle : this.soldInventory) {
+//				inventoryString += (vehicle.formatData() + "\n");
+//			}
+//			bw.write(inventoryString);
+//			bw.close();  
+//		}catch (IOException e) {
+//			System.out.println("Error writing to file");
+//		}
+//				
+//		//for employees
+//		String filePath = path + "employees" + ".txt";
+//		//BW takes a FW argument
+//		try {
+//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+//			String employeeString = "";
+//			//adds each Vehicle to the string using the Vehicle's formatData method
+//			for (Employee employee : this.employees) {
+//				employeeString += (employee.formatData() + "\n");
+//			}
+//			bw.write(employeeString);
+//			bw.close();  
+//		}catch (IOException e) {
+//			System.out.println("Error writing to file");
+//		}
+//	}
+	
+	public void saveAllToFiles() {
+		Vehicle[] array = new Vehicle[this.newInventory.size()];
+		int i = 0;
+		for (Vehicle vehicle : this.newInventory) {
+			array[i++] = vehicle;
+		}
+		saveInventoryToFile("newVehicles", array);
+		
+		array = new Vehicle[this.usedInventory.size()];
+		i = 0;
+		for (Vehicle vehicle : this.usedInventory) {
+			array[i++] = vehicle;
+		}
+		saveInventoryToFile("usedVehicles", array);
+		
+		array = new Vehicle[this.soldInventory.size()];
+		i = 0;
+		for (Vehicle vehicle : this.soldInventory) {
+			array[i++] = vehicle;
+		}
+		saveInventoryToFile("soldVehicles", array);
+		
+		saveEmployeesToFile();
+	}
+	
+	public void saveEmployeesToFile() {
+		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
+		String filePath = path + "employees" + ".txt";
+		//BW takes a FW argument
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+			String employeeString = "";
+			//adds each Vehicle to the string using the Vehicle's formatData method
+			for (Employee employee : this.employees) {
+				employeeString += (employee.formatData() + "\n");
+			}
+			bw.write(employeeString);
+			bw.close();  
+		}catch (IOException e) {
+			System.out.println("Error writing to file");
+		}
+	}
+
+	public static void saveInventoryToFile(String fileName, Vehicle[] array) {
 		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
 		
-		//for new vehicles
-		String filePath = path + "newVehicles" + ".txt";
+		String filePath = path + fileName + ".txt";
 		//BW takes a FW argument
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-			String inventoryString = "";
+			String resultString = "";
 			//adds each Vehicle to the string using the Vehicle's formatData method
-			for (Vehicle vehicle : this.newInventory) {
-				inventoryString += (vehicle.formatData() + "\n");
+			for (int i=0; i<array.length; i++) {
+				resultString += (array[i].formatData() + "\n");
 			}
-			bw.write(inventoryString);
+			bw.write(resultString);
 			bw.close();  
 		}catch (IOException e) {
 			System.out.println("Error writing to file");
 		}
-		
-		//for used vehicles
-		filePath = path + "usedVehicles" + ".txt";
-		//BW takes a FW argument
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-			String inventoryString = "";
-			//adds each Vehicle to the string using the Vehicle's formatData method
-			for (Vehicle vehicle : this.usedInventory) {
-				inventoryString += (vehicle.formatData() + "\n");
-			}
-			bw.write(inventoryString);
-			bw.close();  
-		}catch (IOException e) {
-			System.out.println("Error writing to file");
-		}
-		
-		//for sold vehicles
-				filePath = path + "soldVehicles" + ".txt";
-				//BW takes a FW argument
-				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-					String inventoryString = "";
-					//adds each Vehicle to the string using the Vehicle's formatData method
-					for (Vehicle vehicle : this.soldInventory) {
-						inventoryString += (vehicle.formatData() + "\n");
-					}
-					bw.write(inventoryString);
-					bw.close();  
-				}catch (IOException e) {
-					System.out.println("Error writing to file");
-				}
 	}
 	
 	public void readInventoriesFromFile() {
@@ -257,27 +349,48 @@ public class Dealership {
 		}
 		
 		//for sold vehicles
-				filePath = path + "soldVehicles" + ".txt";
-				try {
-					//this scanner is taking in a new file
-					Scanner scanner = new Scanner(new File(filePath));
-					while(scanner.hasNextLine()) {
-						Vehicle vehicle;
-						String vehicleInfo = scanner.nextLine();
-						String[] items = vehicleInfo.split(",");
-						if (items.length == 8 || items.length == 11) {
-							vehicle = createNewVehicleFromFile(vehicleInfo);
-						}
-						else {
-							vehicle = createUsedVehicleFromFile(vehicleInfo);
-						}
-						this.soldInventory.add(vehicle);
-					}
-					scanner.close();
-				}catch(FileNotFoundException e) {
-					System.out.println("Error reading from file");
+		filePath = path + "soldVehicles" + ".txt";
+		try {
+			//this scanner is taking in a new file
+			Scanner scanner = new Scanner(new File(filePath));
+			while(scanner.hasNextLine()) {
+				Vehicle vehicle;
+				String vehicleInfo = scanner.nextLine();
+				String[] items = vehicleInfo.split(",");
+				if (items.length == 8 || items.length == 11) {
+					vehicle = createNewVehicleFromFile(vehicleInfo);
 				}
+				else {
+					vehicle = createUsedVehicleFromFile(vehicleInfo);
+				}
+				this.soldInventory.add(vehicle);
+			}
+			scanner.close();
+		}catch(FileNotFoundException e) {
+			System.out.println("Error reading from file");
+		}
 		
+		//for employees
+		filePath = path + "employees" + ".txt";
+		try {
+			//this scanner is taking in a new file
+			Scanner scanner = new Scanner(new File(filePath));
+			while(scanner.hasNextLine()) {
+				String employeeInfo = scanner.nextLine();
+				Employee employee = createNewEmployeeFromFile(employeeInfo);
+				this.employees.add(employee);
+			}
+			scanner.close();
+		}catch(FileNotFoundException e) {
+			System.out.println("Error reading from file");
+		}
+		
+	}
+	
+	public Employee createNewEmployeeFromFile(String employeeInfo) {
+		String[] items = employeeInfo.split("@@");
+		return new Employee(items[1].trim(), items[2].trim(), items[3].trim(), 
+				Long.parseLong(items[4].trim()), Integer.parseInt(items[0].trim()));
 	}
 	
 	//to do: TRY TO CONSOLIDATE THE TOP PARTS
@@ -342,6 +455,7 @@ public class Dealership {
 			case 12:
 				vehicle.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
 			}
+			//TO DO: WHY DON'T WE PUT THE SALE INFO AT THE END FOR ALL?
 		}
 		return vehicle;
 	}
@@ -394,6 +508,22 @@ public class Dealership {
 			}
 		}
 		return vehicle;
+	}
+
+	public ArrayList<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(ArrayList<Employee> employees) {
+		this.employees = employees;
+	}
+
+	public int getLatestEmployeeId() {
+		return latestEmployeeId;
+	}
+
+	public void setLatestEmployeeId(int latestEmployeeId) {
+		this.latestEmployeeId = latestEmployeeId;
 	}
 
 }
