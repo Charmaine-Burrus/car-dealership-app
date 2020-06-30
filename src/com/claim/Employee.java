@@ -2,24 +2,29 @@ package com.claim;
 
 public class Employee extends Person {
 	
-	private long employeeId;
+	private int employeeId;
 	
 	//default constructor
 	public Employee() {
 		super();
 	}
 		
-	//overloaded constructor
-	public Employee(String firstName, String lastName, String email, long phoneNumber, long employeeId) {
+	//overloaded constructor used when reading from file
+	public Employee(String firstName, String lastName, String email, long phoneNumber, int employeeId) {
 		super(firstName, lastName, email, phoneNumber);
 		this.employeeId = employeeId;
 	}
 	
-	public long getEmployeeId() {
+	//overloaded constructor used when adding new employee in the app
+	public Employee(String firstName, String lastName, String email, long phoneNumber) {
+		super(firstName, lastName, email, phoneNumber);
+	}
+	
+	public int getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(long employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
 	
