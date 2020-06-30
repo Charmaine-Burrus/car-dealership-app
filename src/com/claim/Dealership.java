@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 public class Dealership {
 	
+	private static final String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
 	private String name;
 	private ArrayList<NewVehicle> newInventory;
 	private ArrayList<UsedVehicle> usedInventory;
@@ -106,8 +107,6 @@ public class Dealership {
 	    }
 	    return null;
 	}
-	
-	//to do: COULD PROBABLY MAKE ALL THE INVENTORIES HASHSETS INSTEAD IF JUST ADDING AND REMOVING AND PRINTING (sorted hashset)
 
 //	public void addToInventory(//all details for vehicle?) {
 //		//LOOK BACK AT HOW I DID LIBRARY AND PHONEBOOK
@@ -178,76 +177,6 @@ public class Dealership {
 		return modelArray;
 	}
 	
-	//to do: simplify this by doing something more similar to phonebook app
-	//I tried to condense it into a simpler method saveArrayListToFile.. but the casting and generalization didn't work
-//	public void saveAllInventoriesToFiles() {
-//		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
-//		
-//		//for new vehicles
-//		String filePath = path + "newVehicles" + ".txt";
-//		//BW takes a FW argument
-//		try {
-//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-//			String inventoryString = "";
-//			//adds each Vehicle to the string using the Vehicle's formatData method
-//			for (Vehicle vehicle : this.newInventory) {
-//				inventoryString += (vehicle.formatData() + "\n");
-//			}
-//			bw.write(inventoryString);
-//			bw.close();  
-//		}catch (IOException e) {
-//			System.out.println("Error writing to file");
-//		}
-//		
-//		//for used vehicles
-//		filePath = path + "usedVehicles" + ".txt";
-//		//BW takes a FW argument
-//		try {
-//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-//			String inventoryString = "";
-//			//adds each Vehicle to the string using the Vehicle's formatData method
-//			for (Vehicle vehicle : this.usedInventory) {
-//				inventoryString += (vehicle.formatData() + "\n");
-//			}
-//			bw.write(inventoryString);
-//			bw.close();  
-//		}catch (IOException e) {
-//			System.out.println("Error writing to file");
-//		}
-//		
-//		//for sold vehicles
-//		filePath = path + "soldVehicles" + ".txt";
-//		//BW takes a FW argument
-//		try {
-//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-//			String inventoryString = "";
-//			//adds each Vehicle to the string using the Vehicle's formatData method
-//			for (Vehicle vehicle : this.soldInventory) {
-//				inventoryString += (vehicle.formatData() + "\n");
-//			}
-//			bw.write(inventoryString);
-//			bw.close();  
-//		}catch (IOException e) {
-//			System.out.println("Error writing to file");
-//		}
-//				
-//		//for employees
-//		String filePath = path + "employees" + ".txt";
-//		//BW takes a FW argument
-//		try {
-//			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-//			String employeeString = "";
-//			//adds each Vehicle to the string using the Vehicle's formatData method
-//			for (Employee employee : this.employees) {
-//				employeeString += (employee.formatData() + "\n");
-//			}
-//			bw.write(employeeString);
-//			bw.close();  
-//		}catch (IOException e) {
-//			System.out.println("Error writing to file");
-//		}
-//	}
-	
 	public void saveAllToFiles() {
 		Vehicle[] array = new Vehicle[this.newInventory.size()];
 		int i = 0;
@@ -274,7 +203,6 @@ public class Dealership {
 	}
 	
 	public void saveEmployeesToFile() {
-		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
 		String filePath = path + "employees" + ".txt";
 		//BW takes a FW argument
 		try {
@@ -292,8 +220,6 @@ public class Dealership {
 	}
 
 	public static void saveInventoryToFile(String fileName, Vehicle[] array) {
-		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
-		
 		String filePath = path + fileName + ".txt";
 		//BW takes a FW argument
 		try {
@@ -311,8 +237,6 @@ public class Dealership {
 	}
 	
 	public void readInventoriesFromFile() {
-		String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
-		
 		//for new vehicles
 		String filePath = path + "newVehicles" + ".txt";
 		try {
