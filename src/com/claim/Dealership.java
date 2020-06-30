@@ -8,11 +8,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import javax.imageio.ImageIO;
 
 public class Dealership {
 	
@@ -123,8 +120,8 @@ public class Dealership {
 //	}
 	
 	//addEmployee method which assigns the next id number 
-	public void addEmployee(String firstName, String lastName, String email, long phoneNumber) {
-		Employee employee = new Employee(firstName, lastName, email, phoneNumber);
+	public void addEmployee(String firstName, String lastName, String email, long phoneNumber, String password) {
+		Employee employee = new Employee(firstName, lastName, email, phoneNumber, password);
 		employee.setEmployeeId(++latestEmployeeId);
 		employees.add(employee);
 	}
@@ -386,11 +383,11 @@ public class Dealership {
 		}
 		
 	}
-	
+
 	public Employee createNewEmployeeFromFile(String employeeInfo) {
 		String[] items = employeeInfo.split("@@");
-		return new Employee(items[1].trim(), items[2].trim(), items[3].trim(), 
-				Long.parseLong(items[4].trim()), Integer.parseInt(items[0].trim()));
+		return new Employee(items[1].trim(), items[2].trim(), items[4].trim(), 
+				Long.parseLong(items[3].trim()), Integer.parseInt(items[0].trim()), items[5].trim());
 	}
 	
 	//to do: TRY TO CONSOLIDATE THE TOP PARTS
