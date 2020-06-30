@@ -18,6 +18,11 @@
 	<form class="form-signin" action="AdminLoginServlet" method="post">
   	  <img class="mb-4 center" src="img/Burrus automotive - medium.png">
   	  <h1 class="h3 mb-3 font-weight-normal">Admin Login</h1>
+  	  <c:if test="${loginSuccessful == false}">
+      	<div class="alert alert-danger" role="alert">
+  			Login Unsuccessful. Please check your ID & Password.
+		</div>
+	  </c:if>
 	  <input type="text" id="employeeId" class="form-control mb-2" name="employeeId" placeholder="Employee ID #" required="" autofocus="">
 	  <input type="password" id="inputPassword" class="form-control mb-2" name="password" placeholder="Password" required="">
 	  <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Log in</button>

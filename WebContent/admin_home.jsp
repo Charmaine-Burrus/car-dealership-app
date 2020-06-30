@@ -14,7 +14,11 @@
 </head>
 
 <body>
+<c:if test="${employee == null}">
+	<h3>You do not have permission to view this page. If you are an admin, please login.</h3>
+</c:if>
 
+<c:if test="${employee != null}">
 <!-- Navigation -->
 <!-- navbar is styled in CSS to have more padding -->
 <!--md is the breakpoint where it will expand from mobile to regular -->
@@ -146,6 +150,7 @@
     </main>
   </div>
 </div>
+</c:if>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
