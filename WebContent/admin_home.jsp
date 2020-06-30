@@ -11,6 +11,7 @@
 	<title>Admin Home</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link href="./styles/styles.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 </head>
 
 <body>
@@ -110,8 +111,11 @@
           </button>
         </div>
       </div>
-
-      <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="798" height="336" style="display: block; height: 269px; width: 639px;"></canvas>
+      
+    <div class="my-4 w-100">
+    	<canvas id="myChart"></canvas>
+		<script type="text/javascript" src="./javascript/adminchart.js"></script>
+	</div>
 
 <!-- TO DO: Click to see bid card ... evenly space the rows -->
       <h2 id="reports">Sales Report</h2>
@@ -151,7 +155,7 @@
   </div>
 </div>
 </c:if>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
