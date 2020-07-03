@@ -32,19 +32,19 @@
 				
 				<div class="form-row mb-2">
                         <div class="col">
-                            <input type="text" class="form-control" name="firstName" placeholder="First Name"/>
+                            <input type="text" class="form-control" name="firstName" placeholder="First Name" required/>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="lastName" placeholder="Last Name"/>
+                            <input type="text" class="form-control" name="lastName" placeholder="Last Name" required/>
                         </div>
                 </div>
 				
 				<div class="form-row mb-2">
                         <div class="col">
-                            <input type="text" class="form-control" name="email" placeholder="Email Address"/>
+                            <input type="text" class="form-control" name="email" placeholder="Email Address" required/>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" name="phone" placeholder="Phone Number"/>
+                            <input type="text" class="form-control" name="phone" placeholder="Phone Number" required/>
                         </div>
                 </div>
                 
@@ -56,7 +56,7 @@
                 
                 <div class="form-row mb-2">
                         <div class="col">
-                            Offer*<span> <input type="text" class="form-control" name="offeredPrice" placeholder="${vehicle.askingPrice}"/> </span>
+                            Offer*<span> <input type="text" class="form-control" name="offeredPrice" placeholder="${vehicle.askingPrice}" required/> </span>
                             *Offer must be at least 90% of asking price.
                         </div>
                 </div>
