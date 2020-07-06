@@ -23,6 +23,7 @@
   			Login Unsuccessful. Please check your ID & Password.
 		</div>
 	  </c:if>
+	  <p> For preview, use ID: 1001 & Password: password </p>
 	  <input type="text" id="employeeId" class="form-control mb-2" name="employeeId" placeholder="Employee ID #" required="" autofocus="">
 	  <input type="password" id="inputPassword" class="form-control mb-2" name="password" placeholder="Password" required="">
 	  <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">Log in</button>
