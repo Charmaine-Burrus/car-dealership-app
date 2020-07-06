@@ -2,8 +2,6 @@
  * 
  */
 
-//var ctx = document.getElementById("myChart").getContext('2d');
-
 var myChartData = {
 type: 'bar',
 data: {

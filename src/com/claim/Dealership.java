@@ -74,6 +74,22 @@ public class Dealership {
 		this.latestVehicleId = latestVehicleId;
 	}
 	
+	public ArrayList<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(ArrayList<Employee> employees) {
+		this.employees = employees;
+	}
+
+	public int getLatestEmployeeId() {
+		return latestEmployeeId;
+	}
+
+	public void setLatestEmployeeId(int latestEmployeeId) {
+		this.latestEmployeeId = latestEmployeeId;
+	}
+	
 	public Vehicle getVehicleById(long id) {
 		for(Vehicle vehicle : this.newInventory) {
 	        if(vehicle.getId() == id) {
@@ -126,8 +142,6 @@ public class Dealership {
 	}
 	
 	public void sellVehicle(Vehicle vehicle, Buyer buyer, double priceSold) {
-//		//TO DO: SEE IF IT STILL WORKS WITHOUT THIS (IT SHOULD B/C REFERENCE TYPE)
-//		Vehicle vehicle = this.getVehicleById(vehicle.getId());
 		//update dateOfPurchase
 		vehicle.setDateOfPurchase(LocalDate.now());
 		//update buyer
@@ -178,37 +192,34 @@ public class Dealership {
 	}
 	
 	public void saveAllToFiles() {
-		Vehicle[] array = new Vehicle[this.newInventory.size()];
-		int i = 0;
-		for (Vehicle vehicle : this.newInventory) {
-			array[i++] = vehicle;
-		}
-		saveInventoryToFile("newVehicles", array);
-		
-		array = new Vehicle[this.usedInventory.size()];
-		i = 0;
-		for (Vehicle vehicle : this.usedInventory) {
-			array[i++] = vehicle;
-		}
-		saveInventoryToFile("usedVehicles", array);
-		
-		array = new Vehicle[this.soldInventory.size()];
-		i = 0;
-		for (Vehicle vehicle : this.soldInventory) {
-			array[i++] = vehicle;
-		}
-		saveInventoryToFile("soldVehicles", array);
-		
+		saveInventoryToFile("newVehicles", this.newInventory);
+		saveInventoryToFile("usedVehicles", this.usedInventory);
+		saveInventoryToFile("soldVehicles", this.soldInventory);
 		saveEmployeesToFile();
+	}
+	
+	public static void saveInventoryToFile(String fileName, ArrayList<? extends Vehicle> array) {
+		String filePath = path + fileName + ".txt";
+		//BW takes a FW argument
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
+			String resultString = "";
+			//adds each Vehicle to the string using the Vehicle's formatData method
+			for (Vehicle vehicle : array) {
+				resultString += (vehicle.formatData() + "\n");
+			}
+			bw.write(resultString);
+			bw.close();  
+		}catch (IOException e) {
+			System.out.println("Error writing to file");
+		}
 	}
 	
 	public void saveEmployeesToFile() {
 		String filePath = path + "employees" + ".txt";
-		//BW takes a FW argument
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
 			String employeeString = "";
-			//adds each Vehicle to the string using the Vehicle's formatData method
 			for (Employee employee : this.employees) {
 				employeeString += (employee.formatData() + "\n");
 			}
@@ -218,35 +229,20 @@ public class Dealership {
 			System.out.println("Error writing to file");
 		}
 	}
-
-	public static void saveInventoryToFile(String fileName, Vehicle[] array) {
-		String filePath = path + fileName + ".txt";
-		//BW takes a FW argument
-		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
-			String resultString = "";
-			//adds each Vehicle to the string using the Vehicle's formatData method
-			for (int i=0; i<array.length; i++) {
-				resultString += (array[i].formatData() + "\n");
-			}
-			bw.write(resultString);
-			bw.close();  
-		}catch (IOException e) {
-			System.out.println("Error writing to file");
-		}
-	}
 	
 	public void readInventoriesFromFile() {
 		//for new vehicles
+		//this line
 		String filePath = path + "newVehicles" + ".txt";
 		try {
 			//this scanner is taking in a new file
 			Scanner scanner = new Scanner(new File(filePath));
 			while(scanner.hasNextLine()) {
-				String vehicleInfo = scanner.nextLine();
-				//above line will look like id, make, model, asking price, date added, description, picture???, maybe price sold, maybe buyer, maybe date of purchase
-				//dates are formatted 2019-01-01
-				Vehicle vehicle = createNewVehicleFromFile(vehicleInfo);
+				String[] items = scanner.nextLine().split(",");
+				//this line
+				Vehicle vehicle = new NewVehicle();
+				setVehicleFields(items, vehicle);
+				//and this line are the only ones that are different...
 				this.newInventory.add((NewVehicle)vehicle);
 			}
 			scanner.close();
@@ -260,8 +256,9 @@ public class Dealership {
 			//this scanner is taking in a new file
 			Scanner scanner = new Scanner(new File(filePath));
 			while(scanner.hasNextLine()) {
-				String vehicleInfo = scanner.nextLine();
-				Vehicle vehicle = createUsedVehicleFromFile(vehicleInfo);
+				String[] items = scanner.nextLine().split(",");
+				Vehicle vehicle = new UsedVehicle();
+				setVehicleFields(items, vehicle);
 				this.usedInventory.add((UsedVehicle)vehicle);
 			}
 			scanner.close();
@@ -279,11 +276,12 @@ public class Dealership {
 				String vehicleInfo = scanner.nextLine();
 				String[] items = vehicleInfo.split(",");
 				if (items.length == 8 || items.length == 11) {
-					vehicle = createNewVehicleFromFile(vehicleInfo);
+					vehicle = new NewVehicle();
 				}
 				else {
-					vehicle = createUsedVehicleFromFile(vehicleInfo);
+					vehicle = new UsedVehicle();
 				}
+				setVehicleFields(items, vehicle);
 				this.soldInventory.add(vehicle);
 			}
 			scanner.close();
@@ -314,12 +312,9 @@ public class Dealership {
 				Long.parseLong(items[3].trim()), Integer.parseInt(items[0].trim()), items[5].trim());
 	}
 	
-	//to do: TRY TO CONSOLIDATE THE TOP PARTS
-	public UsedVehicle createUsedVehicleFromFile(String vehicleInfo) {
-		String[] items = vehicleInfo.split(",");
-		UsedVehicle vehicle = new UsedVehicle();
-		
-		for (int i=0; i<items.length; i++) {
+	public void setVehicleFields(String[] items, Vehicle vehicle) {
+		//for all vehicles (--this will be all new unsold does)
+		for (int i=0; i<8; i++) {
 			switch(i) {
 			case 0:
 				vehicle.setId(Long.parseLong(items[i].trim()));
@@ -349,102 +344,55 @@ public class Dealership {
 					e.printStackTrace();
 				}
 				break;
-			case 8:
-				if (items.length == 13) {
+			}
+		}
+			
+		//this is for a used unsold vehicle
+		if (items.length == 10) {
+			UsedVehicle vehicle2 = (UsedVehicle)vehicle;
+			for (int i=8; i<10; i++) {
+				switch(i) {
+				case 8:
+					vehicle2.setMiles(Integer.parseInt(items[i].trim()));
+					break;
+				case 9:
+					vehicle2.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
+					break;
+				}
+			}
+		}
+		
+		//this is for a sold vehicle (used ==13 and new==11)
+		else if (items.length == 11 || items.length == 13) {
+			for (int i=8; i<11; i++) {
+				switch(i) {
+				case 8:
 					vehicle.setPriceSold(Double.parseDouble(items[i].trim()));
-				}
-				else {
-					vehicle.setMiles(Integer.parseInt(items[i].trim()));
-				}
-				break;
-			case 9:
-				if (items.length == 13) {
+					break;
+				case 9:
 					String[] items2 = items[i].trim().split(";");
 					Buyer buyer = new Buyer(items2[0], items2[1], items2[2], Long.parseLong(items2[3]));
-					vehicle.setBuyer(buyer);					
+					vehicle.setBuyer(buyer);	
+					break;
+				case 10:
+					vehicle.setDateOfPurchase(LocalDate.parse(items[i].trim()));
+					break;
 				}
-				else {
-					vehicle.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
-				}
-				break;
-			case 10:
-				vehicle.setDateOfPurchase(LocalDate.parse(items[i].trim()));
-				break;
-			case 11:
-				vehicle.setMiles(Integer.parseInt(items[i].trim()));
-				break;
-			case 12:
-				vehicle.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
 			}
-			//TO DO: WHY DON'T WE PUT THE SALE INFO AT THE END FOR ALL?
-		}
-		return vehicle;
-	}
-	
-	public NewVehicle createNewVehicleFromFile(String vehicleInfo) {
-		String[] items = vehicleInfo.split(",");
-		NewVehicle vehicle = new NewVehicle();
-		
-		for (int i=0; i<items.length; i++) {
-			switch(i) {
-			case 0:
-				vehicle.setId(Long.parseLong(items[i].trim()));
-				break;
-			case 1: 
-				vehicle.setYear(Short.parseShort(items[i].trim()));
-				break;
-			case 2:
-				vehicle.setMake(items[i].trim());
-				break;
-			case 3:
-				vehicle.setModel(items[i].trim());
-				break;
-			case 4:
-				vehicle.setaskingPrice(Double.parseDouble(items[i].trim()));
-				break;
-			case 5:
-				vehicle.setDateAddedToCurrInventory(LocalDate.parse(items[i].trim()));
-				break;
-			case 6:
-				vehicle.setDescription(items[i].trim());
-				break;
-			case 7:
-				try {
-					vehicle.setPicURL(new URL(items[i].trim()));
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
+			//this is for a used sold vehicle (==13)
+			if (items.length == 13) {
+				for (int i=11; i<items.length; i++) {
+					UsedVehicle vehicle2 = (UsedVehicle)vehicle;
+					switch(i) {	
+					case 11:
+						vehicle2.setMiles(Integer.parseInt(items[i].trim()));
+						break;
+					case 12:
+						vehicle2.setKbbCondition(KbbCondition.valueOf(items[i].trim()));
+					}
 				}
-				break;
-			case 8:
-				vehicle.setPriceSold(Double.parseDouble(items[i].trim()));
-				break;
-			case 9:
-				String[] items2 = items[i].trim().split(";");
-				Buyer buyer = new Buyer(items2[0], items2[1], items2[2], Long.parseLong(items2[3]));
-				vehicle.setBuyer(buyer);					
-				break;
-			case 10:
-				vehicle.setDateOfPurchase(LocalDate.parse(items[i].trim()));
-				break;				
 			}
-		}
-		return vehicle;
-	}
-
-	public ArrayList<Employee> getEmployees() {
-		return employees;
-	}
-
-	public void setEmployees(ArrayList<Employee> employees) {
-		this.employees = employees;
-	}
-
-	public int getLatestEmployeeId() {
-		return latestEmployeeId;
-	}
-
-	public void setLatestEmployeeId(int latestEmployeeId) {
-		this.latestEmployeeId = latestEmployeeId;
+		}				
 	}
 
 }

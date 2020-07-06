@@ -14,9 +14,9 @@ public class Buyer extends Person {
 	
 	public String toString() {
 		return "First Name: " + this.firstName +
-				"Last Name: " + this.lastName +
-				"Email Address: " + this.email +
-				"Phone Number: " + this.phoneNumber;
+				" Last Name: " + this.lastName +
+				" Email Address: " + this.email +
+				" Phone Number: " + this.phoneNumber;
 	}
 	
 	public String formatData() {

@@ -41,8 +41,8 @@ public class Employee extends Person {
 	
 	public String toString() {
 		return "Employee ID: " + this.employeeId +
-				"First Name: " + this.firstName +
-				"Last Name: " + this.lastName;
+				" First Name: " + this.firstName +
+				" Last Name: " + this.lastName;
 	}
 	
 	//To do: add possible employee to sale??
