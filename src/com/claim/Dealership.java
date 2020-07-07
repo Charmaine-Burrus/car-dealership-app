@@ -14,12 +14,10 @@ import java.util.Scanner;
 public class Dealership {
 	
 	private static final String path = "C:\\Users\\Charmaine\\Documents\\Dealership files\\";
-	private String name;
 	private ArrayList<NewVehicle> newInventory;
 	private ArrayList<UsedVehicle> usedInventory;
 	private ArrayList<Vehicle> soldInventory;
 	private long latestVehicleId;
-	//to do: read in employees and parse employee info
 	private ArrayList<Employee> employees;
 	private int latestEmployeeId;
 	
@@ -28,25 +26,18 @@ public class Dealership {
 		this.usedInventory = new ArrayList<UsedVehicle>();
 		this.soldInventory = new ArrayList<Vehicle>();
 		this.employees = new ArrayList<Employee>();
-		this.latestEmployeeId = 1000;
+		//to do: this is not correct, need to get number from files 
+		//this.latestEmployeeId = 1000;
 	}
 	
-	public Dealership(String name, ArrayList<NewVehicle> newInventory, ArrayList<UsedVehicle> usedInventory,
+	public Dealership(ArrayList<NewVehicle> newInventory, ArrayList<UsedVehicle> usedInventory,
 			 ArrayList<Vehicle> soldInventory, long latestVehicleId, ArrayList<Employee> employees, int latestEmployeeId) { 
-		this.name = name;
 		this.newInventory = newInventory; 
 		this.usedInventory = usedInventory;
 		this.soldInventory = soldInventory;
 		this.latestVehicleId = latestVehicleId;
 		this.employees = employees;
 		this.latestEmployeeId = latestEmployeeId;
-	}
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	public ArrayList<NewVehicle> getNewInventory() {
@@ -198,7 +189,7 @@ public class Dealership {
 		saveEmployeesToFile();
 	}
 	
-	public static void saveInventoryToFile(String fileName, ArrayList<? extends Vehicle> array) {
+	public void saveInventoryToFile(String fileName, ArrayList<? extends Vehicle> array) {
 		String filePath = path + fileName + ".txt";
 		//BW takes a FW argument
 		try {
@@ -394,5 +385,4 @@ public class Dealership {
 			}
 		}				
 	}
-
 }
