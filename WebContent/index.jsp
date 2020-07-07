@@ -11,8 +11,7 @@
 	<title>Burrus Automotive</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<link href="./styles/styles.css" rel="stylesheet">
-	<!-- 	<link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css"> -->
-	<!-- trying to initialize some stuff when the page loads	-->
+	<!-- initializing some stuff when the page loads	-->
 	<% Dealership dealership = new Dealership(); %>
 	<% dealership.readInventoriesFromFile(); %>
 	<% session.setAttribute("dealership", dealership); %>
@@ -22,14 +21,13 @@
 
 <jsp:include page="customer_nav_bar.jsp"></jsp:include>
 
-<!--- Welcome Section to do: make this look better... maybe add caroseul with current staff pics-->
-<!-- padding adds space b/t the container and rows.. welcome is a class we'll make to style this -->
+<!--- Welcome Section -->
+<!-- padding adds space b/t the container and rows. welcome is the class we use to style this -->
 <div class="container-fluid padding">
 	<div class="row welcome text-center">
 		<div class="col-12">
 			<h1 class="display-4">Burrus Automotive</h1>
 		</div>
-		<!--used to separate content -->
 		<hr>
 		<div class="col-12">
 			<p class="lead">The region's go-to for all your automotive needs.</p>
@@ -37,7 +35,7 @@
 	</div>
 </div>
 
-<!--- Header -->
+<!--- Header for Cards-->
 <div class="container-fluid padding">
 	<div class="row welcome text-center">
 		<div class="col-12">
@@ -48,6 +46,7 @@
 </div>
 
 <!--- Cards -->
+<!--card 1: New -->
 <div class="container-fluid padding">
 <div class="row padding">
 	<!--card 1-->
@@ -57,13 +56,13 @@
 			<img class="card-img-top home-pics" src="img/new vehicles.jpg">
 			<div class="card-body">
 				<h4 class="card-title">New Vehicles</h4>
-				<p class="card-text">Look at that shiny thing!</p>
+				<p class="card-text">Be the envy of the neighborhood!</p>
 				<a href="new_inventory.jsp" class="btn btn-outline-secondary">View New Vehicles</a>
 			</div>
 		</div>
 	</div>	
 
-	<!--card 2-->
+	<!--card 2: Used -->
 	<div class="col-md-4">
 		<div class="card">
 			<!--img will be at the top of the card, not bottom or mid-->
@@ -76,7 +75,7 @@
 		</div>
 	</div>	
 
-	<!--card 3-->
+	<!--card 3: Best Deals -->
 	<div class="col-md-4">
 		<div class="card">
 			<!--img will be at the top of the card, not bottom or mid-->
@@ -88,7 +87,8 @@
 			</div>
 		</div>
 	</div>	
-	<!--card 4-->
+	
+	<!--card 4: Search -->
 	<div class="col-md-4 center">
 		<div class="card">
 			<!--img will be at the top of the card, not bottom or mid-->
@@ -103,13 +103,13 @@
 </div>
 </div>
 
-<!--- Connect -->
+<!--- Connect on Social Media -->
 <div class="container-fluid padding">
 <div class="row text-center padding">
 	<div class="col-12">
 		<h2>Connect</h2>
 	</div>
-	<!-- we wanting padding to separate the icons from the heading, and we also have a social class that we'll style later -->
+	<!-- padding to separate the icons from the heading, and a social class styled in css -->
 	<div class="col-12 social padding">
 		<!--below we have font-awesome references again -->
 		<a href="#"><i class="fab fa-facebook"></i></a>
@@ -121,48 +121,11 @@
 
 
 <!--- Footer -->
-<footer>
-<div class="container-fluid padding">
-<div class="row text-center">
-	<div class="col-md-4">
-		<hr class="light">
-		<h5>Contact Us</h5>
-		<hr class="light">
-		<p>555-555-5555</p>
-		<p>burrus@burrus-auto.com</p>
-		<p>100 Easy St.</p>
-		<p>St. Louis, MO, 00000</p>
-	</div>
-	<div class="col-md-4">
-		<hr class="light">
-		<h5>Our hours</h5>
-		<hr class="light">
-		<p>Monday-Friday: 9am - 5pm</p>
-		<p>Saturday: 9am - 4pm</p>
-		<p>Sunday: 12pm - 4pm</p>
-	</div>
-	<div class="col-md-4">
-		<hr class="light">
-		<h5>Service Areas</h5>
-		<hr class="light">
-		<p>St. Louis, MO, 00000</p>
-		<p>O'Fallon, MO, 00000</p>
-		<p>O'Fallon, IL, 00000</p>
-		<p>Alton, IL, 00000</p>
-	</div>
-	<!--socket section or section under the footer-->
-	<div class="col-12">
-		<hr class="light">
-		<!-- &copy is a copyright symbol -->
-		<h5>&copy; burrus-auto.com</h5>
-	</div>
-</div>
-</div>
-</footer>
+<jsp:include page="customer_footer.jsp"></jsp:include>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> <!--this allows us to use the social media links at bottom of page-->
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> <!--this allows for the social media links at bottom of page-->
 </body>
 </html>
