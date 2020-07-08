@@ -28,10 +28,10 @@
 		<p>O'Fallon, IL, 00000</p>
 		<p>Alton, IL, 00000</p>
 	</div>
-	<!--socket section or section under the footer-->
+	
+	<!--socket section-->
 	<div class="col-12">
 		<hr class="light">
-		<!-- &copy is a copyright symbol -->
 		<h5>&copy; burrus-auto.com</h5>
 	</div>
 </div>

@@ -5,7 +5,6 @@ public class Employee extends Person {
 	private int employeeId;
 	private String password;
 	
-	//default constructor
 	public Employee() {
 		super();
 	}
@@ -45,7 +44,6 @@ public class Employee extends Person {
 				" Last Name: " + this.lastName;
 	}
 	
-	//To do: add possible employee to sale??
 	public String formatData() {
 		return this.employeeId + 
 				"@@" + this.firstName +

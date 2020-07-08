@@ -13,18 +13,15 @@ public abstract class Vehicle {
 	protected double askingPrice;
 	protected LocalDate dateAddedToCurrInventory;
 	protected String description;
-	//alternatively, this could be a file a file name.. and the front end has file path + this (or this could be final path + name or separate final file path)
 	protected URL picURL;
 	
 	protected double priceSold;
 	protected Buyer buyer;
 	protected LocalDate dateOfPurchase;
 	
-	//default constructor
 	public Vehicle() {
 	}
 	
-	//overloaded constructor
 	public Vehicle(long id, short year, String make, String model, double askingPrice, 
 			LocalDate dateAddedToCurrInventory, String description, URL picURL) {
 		this.id = id;
@@ -125,7 +122,7 @@ public abstract class Vehicle {
 		this.year = year;
 	}
 
-	//will be used to display all details to admin - NewVehicle will use this & Used Vehicle will override it
+	//can be used to display all details to admin - NewVehicle will use this & Used Vehicle will override it
 	public String toString() {
 		String result = "ID: " + this.id + " Year: " + this.year + " Make: " + this.make + 
 				" Model: " + this.model + " Asking Price: " + this.askingPrice + 
@@ -143,7 +140,7 @@ public abstract class Vehicle {
 		return result;
 	}
 	
-	//will be used to display all necc details to user
+	//can be used to display all necc details to user
 	public abstract String toStringForCustomer();
 	
 	//NewVehicle will use this & Used Vehicle will override it
@@ -152,7 +149,6 @@ public abstract class Vehicle {
 			this.model + "," + this.askingPrice + "," +
 			this.dateAddedToCurrInventory + "," + 
 			this.description + "," + this.picURL;
-		//TO DO LATER: SHOULD THIS BE INCLUDED IF NULL OR NOT... FOR READING IN FROM PDF? PRBLY NOT
 		if (this.priceSold != 0) {
 			result += ("," + this.priceSold);
 		}
@@ -172,7 +168,6 @@ public abstract class Vehicle {
 		return false;
 	}
 	
-	//.compareTo by id
 	public int compareTo(Vehicle vehicle2) {
 		if (this.id == vehicle2.getId()) {
 			return 0;

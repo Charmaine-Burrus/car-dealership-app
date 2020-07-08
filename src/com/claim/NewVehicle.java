@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 public class NewVehicle extends Vehicle {
 	
-	//the super isn't necessary now b/c constructor is empty.. but if I add anything.. it will also be used here
 	public NewVehicle() {
 		super();
 	}
@@ -16,7 +15,6 @@ public class NewVehicle extends Vehicle {
 			description, picURL);
 	}
 	
-	//TO DO LATER: MIGHT NOT USE THIS IF I DISPLAY IT ALL IN A TABLE OR SOMETHING INSTEAD
 	public String toStringForCustomer() {
 		return "Year: " + this.year + " Make: " + this.make + " Model: " + this.model + " Price: " + this.askingPrice + " Description: " + this.description;
 	}

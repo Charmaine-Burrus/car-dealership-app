@@ -14,6 +14,7 @@
 
 <body>
 
+<!-- NavBar -->
 <jsp:include page="customer_nav_bar.jsp"></jsp:include>
 
 <!--- Header -->
@@ -26,8 +27,7 @@
 </div>
 </div>
 
-<!-- Selection Area to do: put new/used first and then display models based on that, JSTL can i put make first and narrow model choices by that?, can I use this with a checkbox select(and read it in as an array of Models?)
-TO DO: Modify formatting... don't still admin-login and form-sign-in.-->
+<!-- Selection Area -->
 <div class="container-fluid admin-login">
 	<form class="form-signin" action="SearchServlet" method="post">    
 	    <div>

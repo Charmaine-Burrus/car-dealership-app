@@ -14,6 +14,7 @@
 
 <body>
 
+<!-- NavBar -->
 <jsp:include page="customer_nav_bar.jsp"></jsp:include>
 
 <!--- Header -->

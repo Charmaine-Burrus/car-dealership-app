@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 var myChartData = {
 type: 'bar',
 data: {
@@ -41,4 +37,3 @@ beginAtZero: true
 
 var myChart = document.getElementById("myChart").getContext('2d');
 new Chart(myChart, myChartData);
-//new Chart(myChart).Line(myChartData);

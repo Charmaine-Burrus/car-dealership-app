@@ -26,14 +26,12 @@ public class AdminLoginServlet extends HttpServlet {
      */
     public AdminLoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -43,8 +41,9 @@ public class AdminLoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		Dealership dealership = (Dealership)session.getAttribute("dealership");
-		//I'm using using this b/c if I base the popup Employee existing it will say login unsuccessful when they first go to login page
+		//this boolean is used to decide whether or not to display message on login page
 		boolean loginSuccessful = false;
+		
 		//try to find employee with these criteria
 		ArrayList<Employee> employees = dealership.getEmployees();
 		for (Employee currEmployee : employees) {
@@ -53,7 +52,6 @@ public class AdminLoginServlet extends HttpServlet {
 					&& request.getParameter("password").equals(currEmployee.getPassword())) {
 				Employee employee = currEmployee;
 				session.setAttribute("employee", employee);
-				//is this neccessary?
 				loginSuccessful = true;
 				session.setAttribute("loginSuccessful", loginSuccessful);
 				//send to admin login

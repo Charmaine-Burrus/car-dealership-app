@@ -26,8 +26,7 @@ public class Dealership {
 		this.usedInventory = new ArrayList<UsedVehicle>();
 		this.soldInventory = new ArrayList<Vehicle>();
 		this.employees = new ArrayList<Employee>();
-		//to do: this is not correct, need to get number from files 
-		//this.latestEmployeeId = 1000;
+		this.latestEmployeeId = 1000;
 	}
 	
 	public Dealership(ArrayList<NewVehicle> newInventory, ArrayList<UsedVehicle> usedInventory,
@@ -100,69 +99,40 @@ public class Dealership {
 	    return null;
 	}
 	
-	//MAY GET RID OF THIS IF DON'T USE IT IN SELLVEHICLE METHOD
-	public String getInventoryByVehicleId(long id) {
-		for(Vehicle vehicle : this.newInventory) {
-	        if(vehicle.getId() == id) {
-	            return "new";
-	        }
-	    }
-		for(Vehicle vehicle : this.usedInventory) {
-	        if(vehicle.getId() == id) {
-	            return "used";
-	        }
-	    }
-	    return null;
-	}
-
-//	public void addToInventory(//all details for vehicle?) {
-//		//LOOK BACK AT HOW I DID LIBRARY AND PHONEBOOK
-//		//make a Vehicle with these details
-//		//set id & everything else
-//		//update most recent id
-//		//if the vehicle is a newVehicle add to newInventory  //TO DO: How do I do this?
-//		//if the vehicle is a usedVehicle add to used
-//		//set dateAddedToInventory to today
-//	}
-	
-	//addEmployee method which assigns the next id number 
+	//addEmployee method also assigns the next id number 
 	public void addEmployee(String firstName, String lastName, String email, long phoneNumber, String password) {
 		Employee employee = new Employee(firstName, lastName, email, phoneNumber, password);
-		employee.setEmployeeId(++latestEmployeeId);
+		latestEmployeeId++;
+		employee.setEmployeeId(latestEmployeeId);
 		employees.add(employee);
 	}
 	
 	public void sellVehicle(Vehicle vehicle, Buyer buyer, double priceSold) {
-		//update dateOfPurchase
 		vehicle.setDateOfPurchase(LocalDate.now());
-		//update buyer
 		vehicle.setBuyer(buyer);
-		//update price sold
 		vehicle.setPriceSold(priceSold);
-		//transfer from from current to sold inventory
+		//transfer vehicle from from current to sold inventory
 		this.newInventory.remove(vehicle);
 		this.usedInventory.remove(vehicle);
 		this.soldInventory.add(vehicle);
-		//write inventories to file
+		//write inventories to file (since they were just modified)
 		saveAllToFiles();
 	} 
 	
+	//this gets a list of all available models for which we have vehicles to display to user (only lists each model once)
 	public ArrayList<String> getAllModels() {
 		ArrayList<String> allModels = new ArrayList<String>();
 		for (Vehicle vehicle : this.newInventory) {
-			//this may not work if it's not based on .equals
 			if (!allModels.contains(vehicle.getModel()))
 				allModels.add(vehicle.getModel());
 		}
 		for (Vehicle vehicle : this.usedInventory) {
-			//this may not work if it's not based on .equals
 			if (!allModels.contains(vehicle.getModel()))
 				allModels.add(vehicle.getModel());
 		}
 		return allModels;
 	}
 	
-	//can I use this with a checkbox select(and read it in as an array of Models?)   
 	public ArrayList<Vehicle> getVehiclesOfModel(String model, boolean includeNew, boolean includeUsed) {
 		ArrayList<Vehicle> modelArray = new ArrayList<Vehicle>();
 		if (includeNew == true) {
@@ -189,9 +159,9 @@ public class Dealership {
 		saveEmployeesToFile();
 	}
 	
+	//uses WildCard parameter to allow this to be used for NewVehicle, UsedVehicle, & mixed arrays (above you can see this is ran for all inventories)
 	public void saveInventoryToFile(String fileName, ArrayList<? extends Vehicle> array) {
 		String filePath = path + fileName + ".txt";
-		//BW takes a FW argument
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(filePath));
 			String resultString = "";
@@ -223,7 +193,6 @@ public class Dealership {
 	
 	public void readInventoriesFromFile() {
 		//for new vehicles
-		//this line
 		String filePath = path + "newVehicles" + ".txt";
 		try {
 			//this scanner is taking in a new file
