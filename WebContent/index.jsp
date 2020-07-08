@@ -19,10 +19,10 @@
 
 <body>
 
+<!-- NavBar -->
 <jsp:include page="customer_nav_bar.jsp"></jsp:include>
 
 <!--- Welcome Section -->
-<!-- padding adds space b/t the container and rows. welcome is the class we use to style this -->
 <div class="container-fluid padding">
 	<div class="row welcome text-center">
 		<div class="col-12">

@@ -74,14 +74,12 @@ html, body {
 	height:50%;
 }
 
-/*to do: am i using these primary buttons? */
 .btn-primary {
 	background-color: white;
 	color: #477a65;
 	border: 1.5px solid #477a65;
 }
 
-/*this is the color it turns when you hover over it */
 .btn-primary:hover {
 	background-color: #477a65;
 	border: 1.5px solid #477a65;
@@ -95,7 +93,6 @@ html, body {
 	padding-bottom: 2rem;
 }
 
-/* I probably want to use this again  */
 .welcome {
 	width: 75%;
 	/* this centers it  */
@@ -156,15 +153,8 @@ hr.light-100{
 }
 
 
+/* everything below is for resizing */
 
-
-
-/*to do: am i using everything below? */
-
-/* this is for resizing it's easier to do this - full screen first*/
-/* and then resize for smaller screens than to do bootstrap "media first" "*/
-/* does this just override these specific font-size for example or get rid of all the other things that we're not including? */
-/*---Media Queries --*/
 @media (max-width: 992px) {
 	.social a {
 		font-size: 4em;
@@ -172,8 +162,6 @@ hr.light-100{
 	}
   }
 @media (max-width: 768px) {
-  /* sizing dowwn the carousel, captions, and buttons */
-  /* styling the carousel captions to be right in the center*/
 	.carousel-caption {
 		top: 45%;
 	}
@@ -184,12 +172,12 @@ hr.light-100{
 	}
 
 	.carousel-caption h3 {
-		/*200% is 2REM, font-weight makes it thikk*/
+		/*200% is 2REM, font-weight makes it thick*/
 		font-size: 140%;
 		font-weight: 400%;
 		padding-bottom: .2rem;
 	}
-	/* I think this will only bodify .btns within .cc class */
+
 	.carousel-caption .btn {
 		font-size: 95%;
 		padding: 8px 14px;
@@ -207,18 +195,15 @@ hr.light-100{
 		top: 40%;
 	}
 
-	/* "Bootstrap" formatting */
 	.carousel-catption h1 {
 		font-size: 250%;
 	}
 
 	.carousel-caption h3 {
-		/*200% is 2REM, font-weight makes it thikk*/
 		font-size: 110%;
 		font-weight: 400%;
 		padding-bottom: .2rem;
 	}
-	/* I think this will only bodify .btns within .cc class */
 	.carousel-caption .btn {
 		font-size: 90%;
 		/* padding: top/bottom left/right; */
@@ -278,24 +263,3 @@ figure {
 [class*="col-"] {
     padding: 1rem;
 }
-
-
-
-
-
-/*
-Extra small (xs) devices (portrait phones, less than 576px)
-No media query since this is the default in Bootstrap
-
-Small (sm) devices (landscape phones, 576px and up)
-@media (min-width: 576px) { ... }
-
-Medium (md) devices (tablets, 768px and up)
-@media (min-width: 768px) { ... }
-
-Large (lg) devices (desktops, 992px and up)
-@media (min-width: 992px) { ... }
-
-Extra (xl) large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) { ... }
-*/

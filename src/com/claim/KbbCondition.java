@@ -1,5 +1,10 @@
 package com.claim;
 
+/**
+ * based on Kelley Blue Book Vehicle Condition Standards
+ *
+ */
+
 public enum KbbCondition {
 	EXCELLENT("EXCELLENT"), GOOD("GOOD"), FAIR("FAIR"), POOR("POOR");
 	

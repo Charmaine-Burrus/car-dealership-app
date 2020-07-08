@@ -2,12 +2,10 @@ package com.claim;
 
 public class Buyer extends Person {
 	
-	//default constructor
 	public Buyer() {
 		super();
 	}
 		
-	//overloaded constructor
 	public Buyer(String firstName, String lastName, String email, long phoneNumber) {
 		super(firstName, lastName, email, phoneNumber);
 	}

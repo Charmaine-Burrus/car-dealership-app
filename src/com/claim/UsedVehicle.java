@@ -9,7 +9,6 @@ public class UsedVehicle extends Vehicle{
 	//based on Kelley Blue Book Vehicle Condition Standards
 	private KbbCondition kbbCondition;
 	
-	//the super isn't necessary now b/c constructor is empty.. but if I add anything.. it will also be used here
 	public UsedVehicle() {
 		super();
 	}

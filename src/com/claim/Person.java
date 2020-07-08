@@ -42,7 +42,6 @@ public abstract class Person {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	//TO DO: HASHCODE ALSO
 	public boolean equals(Person otherPerson) {
 		if (this.email.equals(otherPerson.getEmail())) {
 			return true;
