@@ -28,4 +28,4 @@ Then change the path field in Dealership class to match the location of those fi
 
 ## Screenshots
 #### Menu Screen
-![](img/search.jpg)
+![](WebContent/img/search.jpg)
