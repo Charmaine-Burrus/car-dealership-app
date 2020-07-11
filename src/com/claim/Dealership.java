@@ -205,6 +205,7 @@ public class Dealership {
 				//and this line are the only ones that are different...
 				this.newInventory.add((NewVehicle)vehicle);
 			}
+			//we can leave this here b/c if fileNotFound, no scanner will be open (so don't need a finally)
 			scanner.close();
 		}catch(FileNotFoundException e) {
 			System.out.println("Error reading from file");
