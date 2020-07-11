@@ -1,32 +1,38 @@
 # car-dealership-app
 Dynamic web project that monitors inventory of new & used cars.
-Other details about the purpose (use overview from resume?)
+Uses object-oriented principles such as inheritance. Designed with Java, HTML(JSP), CSS, servlets, & JSTL.
 
 ## Take a Look!
 #### Home Screen
 ![](WebContent/img/screenshots/home.gif)
 
-Features:
+Details: Nav Bar Header for easy navigation to important pages, Cards with pictures to draw attention to desired pages and buttons to navigat there, and Social Media quick links, Contact Info Footer.
 
 #### Inventory Screens
-![](WebContent/img/screenshots/home.gif)
+![](WebContent/img/screenshots/inventories.gif)
 
-Features:
+Details: For New Vehicles and Used Vehicle pages, cards display each vehicle in that specific inventory with picture and details. An option to place a bid on the vehicle is displayed only if that vehicle has been in inventory for 120+ days from current date. 
+For Best Deals page, cards display info for vehicles which have been in their inventory for 120+ days and thus are eligible for bid at a 90% discount rate. 
 
 #### Placing a Bid
-![](WebContent/img/screenshots/home.gif)
+![](WebContent/img/screenshots/place-bid.gif)
 
-Features:
+Features: Place bid page displays all details of the car and includes a form for user input. If the user enters a bid which is lower than 90% of the asking price, they will be given a warning that the bid is too low, and propted to try another bid. If the bid is accepted, the car is removed from inventory and user is given details for finalizing the purchase and picking up the car.
 
 #### Searching for a Particular Vehicle
-![](WebContent/img/screenshots/home.gif)
+![](WebContent/img/screenshots/search.gif)
 
-Features:
+Details: User can search for a particular car by model and new or used. Only models currently in the inventory will be displayed for users to choose from. All results will be returned to user as cards for view (with option to bid if 120+ days). If a user selects a model and new/used combo that is not available in the inventory, they will be notified and asked to try another search.
 
 #### Admin Login & Admin Home
-![](WebContent/img/screenshots/home.gif)
+![](WebContent/img/screenshots/admin.gif)
 
-Features:
+Details: User login credentials are checked against records of current employees. If the creditials are correct, the user is directed to Admin Home where they can view a chart of sales for the month (updated monthly by staff) and Sales Report which displays all Sold Cars to date (info is updated each time a customer places a successful bid).
+
+#### Mobile View
+![](WebContent/img/screenshots/mobile-view.gif)
+
+Details: Web page is responsive to different screen sizes and is designed to give a fantastic user experience!
 
 <hr>
 
@@ -34,24 +40,22 @@ Features:
 
 1.Install Eclipse
 
-2.Go to this path : File -> İmport -> Git -> Projects From Git ->  Clone URI
+2.Go to this path: File -> İmport -> Git -> Projects From Git ->  Clone URI
 
 3.In the URI section copy and paste this: https://github.com/Charmaine-Burrus/car-dealership-app
 
-4.Fill the user and password blanks with the username and password of your Github account.
+4.In the same window, fill the user and password blanks with the username and password of your Github account.
 
-5.Next the scrrens and finish the import project.
+5.Click Next several times to finish the importing the project.
 
-6.Skip the screen and finish the import project.
+6.In the Project Explorer, copy the Dealership files folder.
 
-7.Save the Dealership files to your documents folder. 
+7.Save Dealership files to the documents folder of your machine. 
 
-8.Change the path field in Dealership class to match your local file path. 
+8.From the Project Explorer, go to: Java Resources -> src -> com.claim -> Dealership.java
 
-9.Go this path : Right click of the project -> New -> Other -> Server -> Tomcat v8.5 server and create this server.
+9.In Dealership.java set the path variable to match your local file path. 
 
-10.Take the content of server.xml and context.xml in the ServerConfings folder and replace with Servers'.
-
-11.Run the project with using the Tomcat v8.5 server.
+10.To run the app, right clisk this project in Project Explorer -> Run As -> Run on Server -> Apache -> select your installed version -> Next -> select the folder where Tomcat is installed -> Finish
 
 12.For better viewing, copy & paste the URL into your preferred web browser.
