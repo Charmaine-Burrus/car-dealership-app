@@ -29,5 +29,4 @@ For running this project :
 
 ## Screenshots
 #### Menu Screen
-![](WebContent/img/search.jpg)
-<img src="https://giphy.com/gifs/YlYMzEXIlLTIRiKeXq" width="900" height="560" />
+![](WebContent/img/screenshots/home.gif)
