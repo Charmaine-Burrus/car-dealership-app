@@ -1,7 +1,36 @@
 # car-dealership-app
 Dynamic web project that monitors inventory of new & used cars.
+Other details about the purpose (use overview from resume?)
 
-For running this project :
+## Take a Look!
+#### Home Screen
+![](WebContent/img/screenshots/home.gif)
+
+Features:
+
+#### Inventory Screens
+![](WebContent/img/screenshots/home.gif)
+
+Features:
+
+#### Placing a Bid
+![](WebContent/img/screenshots/home.gif)
+
+Features:
+
+#### Searching for a Particular Vehicle
+![](WebContent/img/screenshots/home.gif)
+
+Features:
+
+#### Admin Login & Admin Home
+![](WebContent/img/screenshots/home.gif)
+
+Features:
+
+<hr>
+
+## Run this project on your machine:
 
 1.Install Eclipse
 
@@ -26,7 +55,3 @@ For running this project :
 11.Run the project with using the Tomcat v8.5 server.
 
 12.For better viewing, copy & paste the URL into your preferred web browser.
-
-## Screenshots
-#### Menu Screen
-![](WebContent/img/screenshots/home.gif)
