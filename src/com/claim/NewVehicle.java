@@ -15,6 +15,7 @@ public class NewVehicle extends Vehicle {
 			description, picURL);
 	}
 	
+	@Override
 	public String toStringForCustomer() {
 		return "Year: " + this.year + " Make: " + this.make + " Model: " + this.model + " Price: " + this.askingPrice + " Description: " + this.description;
 	}

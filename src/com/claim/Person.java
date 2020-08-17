@@ -42,12 +42,22 @@ public abstract class Person {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public boolean equals(Person otherPerson) {
-		if (this.email.equals(otherPerson.getEmail())) {
-			return true;
-		}
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+		Person otherPerson = (Person) obj;
+        return this.phoneNumber == otherPerson.getPhoneNumber();
 	}
+	
+	@Override
+    public int hashCode() {
+        return Long.hashCode(this.phoneNumber);
+    }
 
 	public int compareTo(Person otherPerson) {
 		return this.lastName.compareTo(otherPerson.getLastName());

@@ -38,12 +38,14 @@ public class Employee extends Person {
 		this.password = password;
 	}
 	
+	@Override
 	public String toString() {
 		return "Employee ID: " + this.employeeId +
 				" First Name: " + this.firstName +
 				" Last Name: " + this.lastName;
 	}
 	
+	@Override
 	public String formatData() {
 		return this.employeeId + 
 				"@@" + this.firstName +
