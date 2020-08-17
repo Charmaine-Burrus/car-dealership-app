@@ -123,6 +123,7 @@ public abstract class Vehicle {
 	}
 
 	//can be used to display all details to admin - NewVehicle will use this & Used Vehicle will override it
+	@Override
 	public String toString() {
 		String result = "ID: " + this.id + " Year: " + this.year + " Make: " + this.make + 
 				" Model: " + this.model + " Asking Price: " + this.askingPrice + 
@@ -161,12 +162,22 @@ public abstract class Vehicle {
 		return result;
 	}
 	
-	public boolean equals(Vehicle vehicle2) {
-		if (this.id == vehicle2.getId()) {
-			return true;
-		}
-		return false;
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+        }
+        if (this.getClass() != obj.getClass()) {
+            return false;
+        }
+		Vehicle otherVehicle = (Vehicle) obj;
+        return this.id == otherVehicle.getId();
 	}
+	
+	@Override
+    public int hashCode() {
+        return Long.hashCode(this.id);
+    }
 	
 	public int compareTo(Vehicle vehicle2) {
 		if (this.id == vehicle2.getId()) {

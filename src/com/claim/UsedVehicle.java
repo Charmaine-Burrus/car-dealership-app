@@ -59,7 +59,5 @@ public class UsedVehicle extends Vehicle{
 		result += "," + this.kbbCondition;
 		return result;
 	}
-	
-	 
 
 }

@@ -10,6 +10,7 @@ public class Buyer extends Person {
 		super(firstName, lastName, email, phoneNumber);
 	}
 	
+	@Override
 	public String toString() {
 		return "First Name: " + this.firstName +
 				" Last Name: " + this.lastName +
@@ -17,6 +18,7 @@ public class Buyer extends Person {
 				" Phone Number: " + this.phoneNumber;
 	}
 	
+	@Override
 	public String formatData() {
 		return this.firstName +
 				";" + this.lastName +
